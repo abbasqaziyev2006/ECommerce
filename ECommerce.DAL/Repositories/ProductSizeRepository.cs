@@ -1,0 +1,15 @@
+﻿using ECommerce.DAL.DataContext;
+using ECommerce.DAL.DataContext.Entities;
+using ECommerce.DAL.Repositories.Contracts;
+
+namespace ECommerce.DAL.Repositories
+{
+    public class ProductSizeRepository : EfCoreRepository<ProductSize>, IProductSizeRepository
+    {
+        public ProductSizeRepository(AppDbContext dbContext) : base(dbContext)
+        {
+        }
+    }
+
+}
+
