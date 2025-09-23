@@ -18,4 +18,10 @@
     <ProjectReference Include="..\ECommerce.BLL\ECommerce.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Cart\" />
+    <Folder Include="Views\Wishlist\" />
+    <Folder Include="Views\Product\" />
+  </ItemGroup>
+
 </Project>

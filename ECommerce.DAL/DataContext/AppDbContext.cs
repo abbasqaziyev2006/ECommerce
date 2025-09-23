@@ -24,13 +24,16 @@ namespace ECommerce.DAL.DataContext
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<ProductImage> ProductImages { get; set; } = null!;
         public DbSet<OrderItem> OrderItems { get; set; } = null!;
         public DbSet<Coupon> Coupons { get; set; } = null!;
         public DbSet<Wishlist> Wishlists { get; set; } = null!;
         public DbSet<Currency> Currencies { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;
         public DbSet<ProductSize> ProductSizes { get; set; } = null!;
-        public DbSet<WebsiteInfo> WebsiteInfos { get; set; } = null!;
+        public DbSet<ContactInfo> ContactInfos { get; set; } = null!;
+        public DbSet<SearchInfo> SearchInfos { get; set; } = null!;
+        public DbSet<Logo> Logos { get; set; } = null!;
         public DbSet<Social> Socials { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {

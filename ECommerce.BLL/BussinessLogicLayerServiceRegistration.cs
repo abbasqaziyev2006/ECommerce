@@ -21,13 +21,13 @@ namespace ECommerce.BLL
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<IAddressService, AddressManager>();
             services.AddScoped<IOrderService, OrderManager>();
-            services.AddScoped<IWebsiteInfoService, WebsiteInfoManager>();
+            services.AddScoped<IContactInfoService, ContactInfoManager>();
             services.AddScoped<ILanguageService, LanguageManager>();
             services.AddScoped<ICurrencyService, CurrencyManager>();
             services.AddScoped<ICouponService, CouponManager>();
             services.AddScoped<IProductSizeService, ProductSizeManager>();
             services.AddScoped<IOrderItemService, OrderItemManager>();
-            services.AddScoped<ISocialService, SocialViewManager>();
+            services.AddScoped<ISocialService, SocialManager>();
             services.AddScoped<IWishlistItemService, WishlistManager>();
             services.AddScoped<BasketManager>();
             services.AddScoped<FileService>();

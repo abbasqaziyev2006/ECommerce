@@ -1,6 +1,8 @@
+using ECommerce.BLL.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-public class CategoryController : Controller
+public partial class CategoryController : Controller
 {
     private readonly ICategoryService _categoryService;
 
@@ -15,4 +17,5 @@ public class CategoryController : Controller
 
         return Json(categories);
     }
+
 }

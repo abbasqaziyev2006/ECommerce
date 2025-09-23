@@ -5,6 +5,6 @@ namespace ECommerce.BLL.Services.Contracts
 {
     public interface ILanguageService : ICrudService<Language, CreateLanguageViewModel, UpdateLanguageViewModel, LanguageViewModel>
     {
-
+ 
     }
 }

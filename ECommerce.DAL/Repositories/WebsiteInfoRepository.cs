@@ -4,7 +4,7 @@ using ECommerce.DAL.Repositories.Contracts;
 
 namespace ECommerce.DAL.Repositories
 {
-    public class WebsiteInfoRepository : EfCoreRepository<WebsiteInfo>, IWebsiteInfoRepository
+    public class WebsiteInfoRepository : EfCoreRepository<ContactInfo>, IWebsiteInfoRepository
     {
         public WebsiteInfoRepository(AppDbContext dbContext) : base(dbContext)
         {

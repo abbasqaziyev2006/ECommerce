@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ECommerce.BLL.ViewModels.WebsiteInfoViewModel;
+using static ECommerce.BLL.ViewModels.ContactInfoViewModel;
 
 namespace ECommerce.BLL.Mapping
 {
@@ -55,9 +55,9 @@ namespace ECommerce.BLL.Mapping
             CreateMap<Social, CreateSocialViewModel>().ReverseMap();
             CreateMap<Social, UpdateSocialViewModel>().ReverseMap();
 
-            CreateMap<WebsiteInfo, WebsiteInfoViewModel>().ReverseMap();
-            CreateMap<WebsiteInfo, CreateWebsiteInfoViewModel>().ReverseMap();
-            CreateMap<WebsiteInfo, UpdateWebsiteInfoViewModel>().ReverseMap();
+            CreateMap<ContactInfo, ContactInfoViewModel>().ReverseMap();
+            CreateMap<ContactInfo, CreateWebsiteInfoViewModel>().ReverseMap();
+            CreateMap<ContactInfo, UpdateWebsiteInfoViewModel>().ReverseMap();
 
             CreateMap<Wishlist, WishlistViewModel>().ReverseMap();
             CreateMap<Wishlist, CreateWishlistViewModel>().ReverseMap();

@@ -16,5 +16,10 @@
 
         public Category? Category { get; set; }
         public List<OrderItem> OrderItems { get; set; } = [];
+        public decimal DiscountPrice { get;  set; }
+        public  List<ProductSize> ProductSizes { get; set; } = []; 
+        public List<ProductTag> ProductTags { get; set; } = [];
+        public List<ProductImage> Images { get; set; } = [];
+
     }
 }

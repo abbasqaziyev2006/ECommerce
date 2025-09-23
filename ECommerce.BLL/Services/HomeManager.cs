@@ -9,7 +9,7 @@ namespace ECommerce.BLL.Services
 {
     public class HomeManager : IHomeService
     {
-        private readonly IWebsiteInfoService _websiteInfoService;
+        private readonly IContactInfoService _contactInfoService;
         private readonly ISocialService _socialService;
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
@@ -17,9 +17,9 @@ namespace ECommerce.BLL.Services
         private readonly ICurrencyService _currencyService;
 
 
-        public HomeManager(IWebsiteInfoService websiteInfoService, ISocialService socialService, ICategoryService categoryService, IProductService productService, ILanguageService languageService, ICurrencyService currencyService)
+        public HomeManager(IContactInfoService contactInfoService, ISocialService socialService, ICategoryService categoryService, IProductService productService, ILanguageService languageService, ICurrencyService currencyService)
         {
-            _websiteInfoService = websiteInfoService;
+            _contactInfoService = contactInfoService;
             _socialService = socialService;
             _categoryService = categoryService;
             _productService = productService;
@@ -29,22 +29,20 @@ namespace ECommerce.BLL.Services
 
         public async Task<HomeViewModel> GetHomeViewModel()
         {
+            var contactInfoList = await _contactInfoService.GetAllAsync();
 
-            var websiteInfoList = await _websiteInfoService.GetAllAsync();
+            var contactInfo = new ContactInfoViewModel();
 
-            var websiteInfo = new WebsiteInfoViewModel();
-
-            if (websiteInfoList == null || !websiteInfoList.Any())
+            if (contactInfoList == null || !contactInfoList.Any())
             {
-                websiteInfo.HelpPhone = "";
-                websiteInfo.SupportPhone = "";
-                websiteInfo.Email = "";
-                websiteInfo.Address = "";
-                websiteInfo.Copyright = "";
+                contactInfo.Phone = "";
+                contactInfo.Email = "";
+                contactInfo.Address = "";
+                contactInfo.Copyright = "";
             }
             else
             {
-                websiteInfo = websiteInfoList.First();
+                contactInfo = contactInfoList.First();
             }
 
             var socials = await _socialService.GetAllAsync();
@@ -61,20 +59,10 @@ namespace ECommerce.BLL.Services
                 categories = new List<CategoryViewModel>();
             }
 
-
-
             var hotDeals = await _productService.GetHotDealsAsync(5);
             if (hotDeals == null || !hotDeals.Any())
             {
                 hotDeals = new List<ProductViewModel>();
-            }
-
-
-
-            var popularProducts = await _productService.GetPopularProductsAsync(5);
-            if (popularProducts == null || !popularProducts.Any())
-            {
-                popularProducts = new List<ProductViewModel>();
             }
 
             var recommendedProducts = await _productService.GetRecommendedProductsAsync(5);
@@ -95,19 +83,16 @@ namespace ECommerce.BLL.Services
                 currencies = new List<CurrencyViewModel>();
             }
 
-
             return new HomeViewModel
             {
-                WebsiteInfo = websiteInfo,
+                ContactInfo = contactInfo,
                 Socials = socials,
                 Categories = categories,
                 HotDeals = hotDeals,
-                PopularProducts = popularProducts,
                 RecommendedProducts = recommendedProducts,
                 Languages = languages,
                 Currencies = currencies
             };
-
         }
     }
 

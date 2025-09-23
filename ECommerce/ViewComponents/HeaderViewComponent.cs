@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECommerce.BLL.Services.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.MVC.ViewComponents
 {

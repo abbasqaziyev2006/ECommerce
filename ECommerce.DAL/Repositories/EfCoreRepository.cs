@@ -16,11 +16,12 @@ namespace ECommerce.DAL.Repositories
             DbContext = dbContext;
         }
 
-        public virtual async Task AddAsync(T entity)
+        public virtual async Task CreateAsync(T entity)
         {
             await DbContext.Set<T>().AddAsync(entity);
             await DbContext.SaveChangesAsync();
         }
+
 
         public virtual async Task<bool> DeleteAsync(T entity)
         {
@@ -34,7 +35,6 @@ namespace ECommerce.DAL.Repositories
             }
 
             return false;
-
         }
 
         public virtual async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool asnotracking = false)

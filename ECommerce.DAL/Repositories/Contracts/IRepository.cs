@@ -17,10 +17,10 @@ namespace ECommerce.DAL.Repositories.Contracts
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             bool AsNoTracking = false);
 
+
+        Task<bool> UpdateAsync(T entity);
+
+        Task<bool> DeleteAsync(T entity);
         Task CreateAsync(T entity);
-
-        Task UpdateAsync(T entity);
-
-        Task DeleteAsync(T entity);
     }
 }

@@ -3,7 +3,7 @@
 namespace Petshop.BLL.ViewModels;
 public class HomeViewModel
 {
-    public WebsiteInfoViewModel? WebsiteInfo { get; set; }
+    public ContactInfoViewModel? ContactInfos { get; set; }
     public List<SocialViewModel>? Socials { get; set; } = [];
     public List<CategoryViewModel>? Categories { get; set; } = [];
     public List<ProductViewModel>? HotDeals { get; set; } = [];

@@ -27,15 +27,6 @@ namespace ECommerce.BLL.Services
             return products;
         }
 
-        public async Task<List<ProductViewModel>> GetPopularProductsAsync(int count)
-        {
-            var productsFromDb = await _productRepository.GetPopularProductsAsync(count);
-
-            var products = _mapper.Map<List<ProductViewModel>>(productsFromDb);
-
-            return products;
-        }
-
         public async Task<List<ProductViewModel>> GetRecommendedProductsAsync(int count)
         {
             var productsFromDb = await _productRepository.GetRecommendedProductsAsync(count);
