@@ -31,18 +31,16 @@ namespace ECommerce.BLL.Services
         {
             var contactInfoList = await _contactInfoService.GetAllAsync();
 
-            var contactInfo = new ContactInfoViewModel();
+            var contactInfos = new ContactInfoViewModel();
 
             if (contactInfoList == null || !contactInfoList.Any())
             {
-                contactInfo.Phone = "";
-                contactInfo.Email = "";
-                contactInfo.Address = "";
-                contactInfo.Copyright = "";
+                contactInfos.Phone = "";
+                contactInfos.Email = "";
             }
             else
             {
-                contactInfo = contactInfoList.First();
+                contactInfos = contactInfoList.First();
             }
 
             var socials = await _socialService.GetAllAsync();
@@ -85,7 +83,7 @@ namespace ECommerce.BLL.Services
 
             return new HomeViewModel
             {
-                ContactInfo = contactInfo,
+                ContactInfos = contactInfos,
                 Socials = socials,
                 Categories = categories,
                 HotDeals = hotDeals,

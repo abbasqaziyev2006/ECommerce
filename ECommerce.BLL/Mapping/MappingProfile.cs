@@ -56,8 +56,8 @@ namespace ECommerce.BLL.Mapping
             CreateMap<Social, UpdateSocialViewModel>().ReverseMap();
 
             CreateMap<ContactInfo, ContactInfoViewModel>().ReverseMap();
-            CreateMap<ContactInfo, CreateWebsiteInfoViewModel>().ReverseMap();
-            CreateMap<ContactInfo, UpdateWebsiteInfoViewModel>().ReverseMap();
+            CreateMap<ContactInfo, CreateContactInfoViewModel>().ReverseMap();
+            CreateMap<ContactInfo, UpdateContactInfoViewModel>().ReverseMap();
 
             CreateMap<Wishlist, WishlistViewModel>().ReverseMap();
             CreateMap<Wishlist, CreateWishlistViewModel>().ReverseMap();
