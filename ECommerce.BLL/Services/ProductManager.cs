@@ -17,7 +17,6 @@ namespace ECommerce.BLL.Services
             _productRepository = productRepository;
             _mapper = mapper;
         }
-
         public async Task<List<ProductViewModel>> GetHotDealsAsync(int count)
         {
             var productsFromDb = await _productRepository.GetHotDealsAsync(count);
@@ -35,5 +34,6 @@ namespace ECommerce.BLL.Services
 
             return products;
         }
+
     }
 }
