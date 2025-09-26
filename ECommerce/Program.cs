@@ -3,10 +3,7 @@ using ECommerce.DAL.DataContext;
 using ECommerce.DAL.DataContext.Entities;
 using Microsoft.AspNetCore.Identity;
 using ECommerce.BLL;
-using ECommerce.BLL.Constants;
 using ECommerce.DAL;
-using ECommerce.DAL.DataContext;
-using ECommerce.DAL.DataContext.Entities;
 
 namespace ECommerce.MVC
 {
