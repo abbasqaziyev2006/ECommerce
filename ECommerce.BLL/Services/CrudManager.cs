@@ -5,7 +5,7 @@ using ECommerce.DAL.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Petshop.BLL.Services;
+namespace ECommerce.BLL.Services;
 public class CrudManager<TEntity, TViewModel, TCreateViewModel, TUpdateViewModel> : ICrudService<TEntity, TViewModel, TCreateViewModel, TUpdateViewModel>
 where TEntity : Entity
 {

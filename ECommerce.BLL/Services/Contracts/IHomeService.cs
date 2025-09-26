@@ -1,4 +1,4 @@
-﻿using Petshop.BLL.ViewModels;
+﻿using ECommerce.BLL.ViewModels;
 
 namespace ECommerce.BLL.Services.Contracts
 {

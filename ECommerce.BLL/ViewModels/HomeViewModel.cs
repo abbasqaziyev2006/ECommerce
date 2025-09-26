@@ -1,6 +1,5 @@
 ﻿using ECommerce.BLL.ViewModels;
-
-namespace Petshop.BLL.ViewModels;
+namespace ECommerce.BLL.ViewModels;
 public class HomeViewModel
 {
     public ContactInfoViewModel? ContactInfos { get; set; }

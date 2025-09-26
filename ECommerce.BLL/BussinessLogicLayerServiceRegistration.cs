@@ -2,13 +2,6 @@
 using ECommerce.BLL.Services;
 using ECommerce.BLL.Services.Contracts;
 using Microsoft.Extensions.DependencyInjection;
-using Petshop.BLL.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ECommerce.BLL
 {
     public static class BussinessLogicLayerServiceRegistration

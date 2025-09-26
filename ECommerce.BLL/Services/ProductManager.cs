@@ -4,7 +4,6 @@ using ECommerce.BLL.ViewModels;
 using ECommerce.DAL.DataContext.Entities;
 using ECommerce.DAL.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore.Query;
-using Petshop.BLL.Services;
 using System.Linq.Expressions;
 namespace ECommerce.BLL.Services
 {
