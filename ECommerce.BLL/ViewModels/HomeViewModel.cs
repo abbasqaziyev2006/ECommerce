@@ -10,4 +10,5 @@ public class HomeViewModel
     public List<ProductViewModel>? RecommendedProducts { get; set; } = [];
     public List<LanguageViewModel>? Languages { get; set; } = [];
     public List<CurrencyViewModel>? Currencies { get; set; } = [];
+    public List<ProductViewModel> Products { get;  set; } = [];
 }

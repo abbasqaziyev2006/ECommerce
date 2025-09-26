@@ -16,8 +16,7 @@ namespace ECommerce.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = await _homeService.GetHomeViewModel(contactInfoList);
-
+            var model = await _homeService.GetHomeViewModel();
             return View(model);
         }
     }

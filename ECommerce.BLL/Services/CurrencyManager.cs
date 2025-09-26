@@ -5,12 +5,12 @@ using ECommerce.DAL.DataContext.Entities;
 using ECommerce.DAL.Repositories.Contracts;
 using Petshop.BLL.Services;
 
-namespace ECommerce.BLL.Services
-{
-    public class CurrencyManager : CrudManager<Currency, CreateCurrencyViewModel, UpdateCurrencyViewModel, CurrencyViewModel>, ICurrencyService
-    {
-        public CurrencyManager(IRepository<Currency> repository, IMapper mapper) : base(repository, mapper) 
-        {
-        }
-    }
-}
+//namespace ECommerce.BLL.Services
+//{
+//    public class CurrencyManager : CrudManager<Currency, CreateCurrencyViewModel, UpdateCurrencyViewModel, CurrencyViewModel>, ICurrencyService
+//    {
+//        public CurrencyManager(IRepository<Currency> repository, IMapper mapper) : base(repository, mapper) 
+//        {
+//        }
+//    }
+//}

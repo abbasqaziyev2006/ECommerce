@@ -19,11 +19,12 @@ namespace ECommerce.BLL
 
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<IProductService, ProductManager>();
+            services.AddScoped<IHomeService, HomeManager>();
             services.AddScoped<IAddressService, AddressManager>();
             services.AddScoped<IOrderService, OrderManager>();
             services.AddScoped<IContactInfoService, ContactInfoManager>();
             services.AddScoped<ILanguageService, LanguageManager>();
-            services.AddScoped<ICurrencyService, CurrencyManager>();
+            //services.AddScoped<ICurrencyService, CurrencyManager>();
             services.AddScoped<ICouponService, CouponManager>();
             services.AddScoped<IProductSizeService, ProductSizeManager>();
             services.AddScoped<IOrderItemService, OrderItemManager>();

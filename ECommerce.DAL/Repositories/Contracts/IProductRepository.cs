@@ -4,7 +4,7 @@ namespace ECommerce.DAL.Repositories.Contracts
 {
     public interface IProductRepository : IRepository<Product>
     {
-        Task<List<Product>> GetHotDealsAsync(int count);
-        Task<List<Product>> GetRecommendedProductsAsync(int count);
+        Task<List<Product>> GetByCategoryAsync(string categoryName);
+        Task<Product?> GetByIdWithDetailsAsync(int id);
     }
 }

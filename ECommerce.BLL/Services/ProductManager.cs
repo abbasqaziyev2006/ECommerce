@@ -8,32 +8,41 @@ using Petshop.BLL.Services;
 using System.Linq.Expressions;
 namespace ECommerce.BLL.Services
 {
-    public class ProductManager : CrudManager<Product, CreateProductViewModel, UpdateProductViewModel, ProductViewModel>, IProductService
+    public class ProductManager : CrudManager<Product, ProductViewModel, CreateProductViewModel, UpdateProductViewModel>, IProductService
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
-        public ProductManager(IRepository<Product> repository, IMapper mapper, IProductRepository productRepository) : base(repository, mapper)
+
+        public ProductManager(IProductRepository repository, IMapper mapper)
+            : base(repository, mapper)
         {
-            _productRepository = productRepository;
+            _repository = repository;
             _mapper = mapper;
         }
-        public async Task<List<ProductViewModel>> GetHotDealsAsync(int count)
+
+        public async Task<List<ProductViewModel>> GetByCategoryAsync(string categoryName)
         {
-            var productsFromDb = await _productRepository.GetHotDealsAsync(count);
-
-            var products = _mapper.Map<List<ProductViewModel>>(productsFromDb);
-
-            return products;
+            var products = await _repository.GetByCategoryAsync(categoryName);
+            return _mapper.Map<List<ProductViewModel>>(products);
         }
 
-        public async Task<List<ProductViewModel>> GetRecommendedProductsAsync(int count)
+
+
+        public async Task<ProductViewModel?> GetByIdWithDetailsAsync(int id)
         {
-            var productsFromDb = await _productRepository.GetRecommendedProductsAsync(count);
+            var product = await _repository.GetByIdWithDetailsAsync(id);
 
-            var products = _mapper.Map<List<ProductViewModel>>(productsFromDb);
+            if (product == null) return null;
 
-            return products;
+            var productViewModel = _mapper.Map<ProductViewModel>(product);
+
+            productViewModel.ImageNames = product.Images.Select(i => i.ImageName).ToList();
+
+            productViewModel.CategoryName = product.Category?.Name;
+
+            productViewModel.TagNames = product.ProductTags.Select(pt => pt.Tag!.Name).ToList();
+
+            return productViewModel;
         }
-
     }
 }
