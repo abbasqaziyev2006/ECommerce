@@ -1,4 +1,4 @@
-﻿namespace Petshop.MVC.Areas.Admin.Models
+﻿namespace ECommerce.MVC.Areas.Admin.Models
 {
     public class CategoryCreateViewModel
     {

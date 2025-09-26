@@ -1,4 +1,4 @@
-﻿namespace Petshop.MVC.Areas.Admin.Data
+﻿namespace ECommerce.MVC.Areas.Admin.Data
 {
     public static class PathConstants
     {
