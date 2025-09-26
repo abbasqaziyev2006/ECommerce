@@ -30,10 +30,3 @@ namespace ECommerce.BLL.ViewModels
     }
 }
 
-public class CreateProductViewModel
-{
-}
-
-public class UpdateProductViewModel
-{
-}
