@@ -1,6 +1,7 @@
 ﻿using ECommerce.BLL.Services.Contracts;
 using ECommerce.DAL.DataContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.MVC.Areas.Admin.Controllers
 {
