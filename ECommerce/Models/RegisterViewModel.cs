@@ -4,7 +4,7 @@ public class RegisterViewModel
 {
     public string? FullName { get; set; }
     public required string Username { get; set; }
-    public IFormFile ProfileImage { get; set; }
+    public IFormFile? ProfileImage { get; set; }
 
     [DataType(DataType.EmailAddress)]
     public required string Email { get; set; }
@@ -13,4 +13,6 @@ public class RegisterViewModel
     [DataType(DataType.Password)]
     [Compare("Password")]
     public required string ConfirmPassword { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
 }

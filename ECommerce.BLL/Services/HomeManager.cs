@@ -27,7 +27,7 @@ namespace ECommerce.BLL.Services
             _currencyService = currencyService;
         }
 
-        public async Task<HomeViewModel> GetHomeViewModel()
+        public async Task<HomeViewModel> GetHomeViewModel(IEnumerable<ContactInfoViewModel.CreateContactInfoViewModel> contactInfoList)
         {
             var contactInfoList = await _contactInfoService.GetAllAsync();
 

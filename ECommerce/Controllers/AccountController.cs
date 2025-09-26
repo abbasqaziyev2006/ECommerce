@@ -1,5 +1,6 @@
 ﻿using ECommerce.BLL.Constants;
 using ECommerce.BLL.Services;
+using ECommerce.DAL.DataContext.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -40,8 +41,8 @@ namespace ECommerce.MVC.Controllers
             {
                 UserName = model.Username,
                 Email = model.Email,
-                FullName = model.FullName,
-                ProfileImageName = profileImageName
+                FirstName = model.FirstName,
+                LastName = model.LastName,
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

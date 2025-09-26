@@ -11,9 +11,9 @@ namespace ECommerce.DAL.Repositories
     {
         protected readonly AppDbContext DbContext;
 
-        public EfCoreRepository(AppDbContext dbContext)
+        public EfCoreRepository(AppDbContext context)
         {
-            DbContext = dbContext;
+            DbContext = context;
         }
 
         public virtual async Task CreateAsync(T entity)
@@ -22,85 +22,52 @@ namespace ECommerce.DAL.Repositories
             await DbContext.SaveChangesAsync();
         }
 
-
-        public virtual async Task<bool> DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(T entity)
         {
-            var existingEntity = await DbContext.Set<T>().FindAsync(entity.Id);
-
-            if (existingEntity != null)
-            {
-                DbContext.Set<T>().Remove(existingEntity);
-                await DbContext.SaveChangesAsync();
-                return true;
-            }
-
-            return false;
+            DbContext.Set<T>().Remove(entity);
+            await DbContext.SaveChangesAsync();
         }
 
-        public virtual async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool asnotracking = false)
+        public virtual async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool AsNoTracking = false)
         {
-            var query = DbContext.Set<T>().AsQueryable();
-
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+            IQueryable<T> query = DbContext.Set<T>();
+            if (AsNoTracking)
+                query = query.AsNoTracking();
 
             if (include != null)
-            {
                 query = include(query);
-            }
+
+            if (predicate != null)
+                query = query.Where(predicate);
 
             if (orderBy != null)
-            {
                 query = orderBy(query);
-            }
-
-            if (asnotracking)
-            {
-                query = query.AsNoTracking();
-            }
 
             return await query.ToListAsync();
         }
 
-        public virtual async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool asnotracking = false)
+        public virtual async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool AsNoTracking = false)
         {
-            var query = DbContext.Set<T>().AsQueryable();
-
-            query = query.Where(predicate);
+            IQueryable<T> query = DbContext.Set<T>();
+            if (AsNoTracking)
+                query = query.AsNoTracking();
 
             if (include != null)
-            {
                 query = include(query);
-            }
 
-            if (asnotracking)
-            {
-                query = query.AsNoTracking();
-            }
-
-            return await query.FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync(predicate);
         }
 
         public virtual async Task<T?> GetByIdAsync(int id)
         {
-            var entity = await DbContext.Set<T>().FindAsync(id);
-            return entity;
+            return await DbContext.Set<T>().FindAsync(id);
         }
 
-        public virtual async Task<bool> UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
-            var existingEntity = await DbContext.Set<T>().FindAsync(entity.Id);
-
-            if (existingEntity != null)
-            {
-                DbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
-                await DbContext.SaveChangesAsync();
-                return true;
-            }
-
-            return false;
+            DbContext.Set<T>().Update(entity);
+            await DbContext.SaveChangesAsync();
         }
     }
+
 }

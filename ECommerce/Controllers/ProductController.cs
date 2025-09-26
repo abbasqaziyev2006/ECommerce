@@ -1,6 +1,8 @@
 using ECommerce.BLL.Services.Contracts;
+using ECommerce.DAL.DataContext.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 public class ProductController : Controller
 {
@@ -23,7 +25,6 @@ public class ProductController : Controller
                 .Include(x => x.Category!)
                 .Include(x => x.Images)
                 .Include(x => x.ProductTags).ThenInclude(x => x.Tag!)
-                .Include(x => x.Reviews.Where(r => r.ReviewStatus == ReviewStatus.Approve))
                 .ThenInclude(r => r.AppUser!)
         );
 
