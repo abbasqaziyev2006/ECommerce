@@ -24,51 +24,51 @@ namespace ECommerce.MVC.Areas.Admin.Controllers
             return View(products);
         }
 
-        public async Task<IActionResult> Create()
-        {
-            var model = await _productService.GetCreateViewModelAsync();
+        //public async Task<IActionResult> Create()
+        //{
+        //    var model = await _productService.GetCreateViewModelAsync();
 
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateProductViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                model = await _productService.GetCreateViewModelAsync();
-                return View(model);
-            }
-
-            await _productService.CreateAsync(model);
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Update(int id)
-        {
-            var model = await _productService.GetUpdateViewModelAsync(id);
-
-            if (model == null)
-                return NotFound();
-
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         [HttpPost]
-        public async Task<IActionResult> Update(int id, UpdateProductViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                model = await _productService.GetUpdateViewModelAsync(id);
-                return View(model);
-            }
-            var isUpdated = await _productService.UpdateAsync(id, model);
-            if (!isUpdated)
-                return NotFound();
+        //public async Task<IActionResult> Create(CreateProductViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        model = await _productService.GetCreateViewModelAsync();
+        //        return View(model);
+        //    }
 
-            return RedirectToAction(nameof(Index));
-        }
+        //    await _productService.CreateAsync(model);
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //public async Task<IActionResult> Update(int id)
+        //{
+        //    var model = await _productService.GetUpdateViewModelAsync(id);
+
+        //    if (model == null)
+        //        return NotFound();
+
+        //    return View(model);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Update(int id, UpdateProductViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        model = await _productService.GetUpdateViewModelAsync(id);
+        //        return View(model);
+        //    }
+        //    var isUpdated = await _productService.UpdateAsync(id, model);
+        //    if (!isUpdated)
+        //        return NotFound();
+
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)

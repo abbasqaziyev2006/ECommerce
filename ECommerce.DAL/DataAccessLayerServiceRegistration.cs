@@ -39,6 +39,7 @@ namespace ECommerce.DAL
             services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
             services.AddScoped<IWishlistRepository, WishlistRepository>();
 
+
             return services;
         }
     }

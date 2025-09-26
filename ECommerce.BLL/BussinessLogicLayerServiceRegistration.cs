@@ -17,7 +17,7 @@ namespace ECommerce.BLL
             services.AddScoped<IOrderService, OrderManager>();
             services.AddScoped<IContactInfoService, ContactInfoManager>();
             services.AddScoped<ILanguageService, LanguageManager>();
-            //services.AddScoped<ICurrencyService, CurrencyManager>();
+            services.AddScoped<ICurrencyService, CurrencyManager>();
             services.AddScoped<ICouponService, CouponManager>();
             services.AddScoped<IProductSizeService, ProductSizeManager>();
             services.AddScoped<IOrderItemService, OrderItemManager>();
