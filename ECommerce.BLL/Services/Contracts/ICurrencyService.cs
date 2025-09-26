@@ -10,6 +10,6 @@ namespace ECommerce.BLL.Services.Contracts
 {
     public interface ICurrencyService : ICrudService<Currency, CreateCurrencyViewModel, UpdateCurrencyViewModel, CurrencyViewModel>
     {
-        string? GetAll();
+
     }
 }
