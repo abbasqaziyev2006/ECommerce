@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using ECommerce.BLL.Services.Contracts;
+﻿using ECommerce.BLL.Services.Contracts;
 using ECommerce.BLL.ViewModels;
-using ECommerce.DAL.DataContext.Entities;
-using ECommerce.DAL.Repositories.Contracts;
-using ECommerce.BLL.ViewModels;
-
 namespace ECommerce.BLL.Services
 {
     public class HomeManager : IHomeService

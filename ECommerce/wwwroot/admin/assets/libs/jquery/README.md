@@ -16,7 +16,7 @@ Below are some of the most common ways to include jQuery.
 #### Script tag
 
 ```html
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="~/https://code.jquery.com/jquery-3.7.1.min.js"></script>
 ```
 
 #### Webpack / Browserify / Babel
