@@ -6,7 +6,5 @@ namespace ECommerce.BLL.ViewModels
     {
         public Logo Logo { get; set; } = null!;
         public List<Social> Socials { get; set; } = [];
-        //public NewsletterInfo? Newsletter { get; set; }
-        //public FooterBottom Bottom { get; set; } = null!;
     }
 }

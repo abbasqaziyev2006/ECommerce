@@ -1,13 +1,5 @@
 ﻿@using ECommerce.BLL.ViewModels
-﻿@{
-HomeViewModel model = Model;
-var websiteInfo = model.ContactInfos;
-var categories = model.Categories;
-var hotDeals = model.HotDeals;
-var recommendedProducts = model.RecommendedProducts;
-var languages = model.Languages;
-var currencies = model.Currencies;
-}
+﻿@model HeaderViewModel
 
 <!-- RTL -->
 <a href="#" id="toggle-rtl" class="tf-btn animate-hover-btn btn-fill">RTL</a>
@@ -90,7 +82,7 @@ var currencies = model.Currencies;
                 </div>
                 <div class="col-xl-3 col-md-4 col-6">
                     <a href="index.html" class="logo-header">
-                        <imgsrc="~/images/logo/logo.svg" alt="logo" class="logo">
+                        <img src="~/images/logo/logo.svg" alt="logo" class="logo">
                     </a>
                 </div>
                 <div class="col-xl-6 tf-md-hidden">
