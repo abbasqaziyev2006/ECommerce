@@ -20,12 +20,7 @@ public class FooterManager : IFooterService
             //.OrderByDescending(x => x.CreatedAt)
             //.FirstOrDefaultAsync(),
 
-            //SocialLinks = await _dbContext.SocialLinks.ToListAsync(),
-
-            //Newsletter = await _dbContext.NewsletterInfos
-            //.OrderByDescending(x => x.CreatedAt).FirstOrDefaultAsync()
-            //?? new NewsletterInfo { Title = "Join Us", Description = "Subscribe to newsletter", Icon = "fa-envelope" },
-
+            Socials = await _dbContext.Socials.ToListAsync(),
            
         };
 

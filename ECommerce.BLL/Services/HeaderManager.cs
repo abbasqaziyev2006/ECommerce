@@ -17,9 +17,7 @@ public class HeaderManager : IHeaderService
     {
         var headerViewModel = new HeaderViewModel
         {
-            Logo = await _dbContext.Logos
-            .OrderByDescending(x => x.CreatedAt)
-            .FirstOrDefaultAsync(),
+         
 
             //ContactInfo = await _dbContext.ContactInfos
             //.OrderByDescending(x => x.CreatedAt)
