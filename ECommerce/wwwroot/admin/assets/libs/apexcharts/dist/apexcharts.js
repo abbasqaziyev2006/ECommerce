@@ -7196,13 +7196,13 @@
           });
         }
         if (fillType === 'image') {
-          var imgSrc = cnf.fill.image.src;
+          var img src = cnf.fill.image.src;
           var patternID = opts.patternID ? opts.patternID : '';
           var patternKey = "pattern".concat(w.globals.cuid).concat(opts.seriesNumber + 1).concat(patternID);
           if (this.patternIDs.indexOf(patternKey) === -1) {
             this.clippedImgArea({
               opacity: fillOpacity,
-              image: Array.isArray(imgSrc) ? opts.seriesNumber < imgSrc.length ? imgSrc[opts.seriesNumber] : imgSrc[0] : imgSrc,
+              image: Array.isArray(img src) ? opts.seriesNumber < img src.length ? img src[opts.seriesNumber] : img src[0] : img src,
               width: opts.width ? opts.width : undefined,
               height: opts.height ? opts.height : undefined,
               patternUnits: opts.patternUnits,

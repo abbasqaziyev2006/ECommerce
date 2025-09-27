@@ -174,7 +174,7 @@ class Fill {
     }
 
     if (fillType === 'image') {
-      let imgSrc = cnf.fill.image.src
+      let img src = cnf.fill.image.src
 
       let patternID = opts.patternID ? opts.patternID : ''
       const patternKey = `pattern${w.globals.cuid}${
@@ -184,11 +184,11 @@ class Fill {
       if (this.patternIDs.indexOf(patternKey) === -1) {
         this.clippedImgArea({
           opacity: fillOpacity,
-          image: Array.isArray(imgSrc)
-            ? opts.seriesNumber < imgSrc.length
-              ? imgSrc[opts.seriesNumber]
-              : imgSrc[0]
-            : imgSrc,
+          image: Array.isArray(img src)
+            ? opts.seriesNumber < img src.length
+              ? img src[opts.seriesNumber]
+              : img src[0]
+            : img src,
           width: opts.width ? opts.width : undefined,
           height: opts.height ? opts.height : undefined,
           patternUnits: opts.patternUnits,

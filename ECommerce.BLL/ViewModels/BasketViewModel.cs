@@ -20,6 +20,7 @@ namespace ECommerce.BLL.ViewModels
         public string ImageName { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public int Count { get; set; } = 1;
         public decimal TotalPrice => Price * Quantity;
     }
 

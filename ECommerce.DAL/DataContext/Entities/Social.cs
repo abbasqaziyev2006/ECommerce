@@ -2,6 +2,7 @@
 
 public class Social : Entity
 {
-    public string Url { get; set; } = null!;
-    public string IconUrl { get; set; } = null!;
+    public required string Name { get; set; }
+    public required string Class { get; set; }
+    public string? Url { get; set; }
 }
