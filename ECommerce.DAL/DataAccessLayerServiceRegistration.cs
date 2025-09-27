@@ -30,6 +30,7 @@ namespace ECommerce.DAL
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ICouponRepository, CouponRepository>();
+            services.AddScoped<ISliderRepository, SliderRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();

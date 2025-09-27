@@ -660,7 +660,7 @@
                   text: result,
                 }).append(
                   $(
-                    '<a class="close" href="~/#"><i class="icon icon-close2"></i></a>'
+                    '<a class="close" href="#"><i class="icon icon-close2"></i></a>'
                   )
                 )
               );

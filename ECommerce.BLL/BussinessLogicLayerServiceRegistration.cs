@@ -25,6 +25,8 @@ namespace ECommerce.BLL
             services.AddScoped<IOrderItemService, OrderItemManager>();
             services.AddScoped<ISocialService, SocialManager>();
             services.AddScoped<IWishlistItemService, WishlistManager>();
+            services.AddScoped<IShopService, ShopManager>();
+            services.AddScoped<ISliderService, SliderManager>();
             services.AddScoped<BasketManager>();
             services.AddScoped<FileService>();
 

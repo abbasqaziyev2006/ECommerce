@@ -22,6 +22,7 @@ namespace ECommerce.DAL.DataContext
 
         public DbSet<Address> Adresses { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<Slider> Sliders { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<ProductImage> ProductImages { get; set; } = null!;

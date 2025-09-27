@@ -17,5 +17,4 @@ public partial class CategoryController : Controller
 
         return Json(categories);
     }
-
 }

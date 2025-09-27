@@ -18,6 +18,11 @@ namespace ECommerce.BLL.Mapping
             CreateMap<Address, CreateAddressViewModel>().ReverseMap();
             CreateMap<Address, UpdateAddressViewModel>().ReverseMap();
 
+            CreateMap<Slider, SliderViewModel>().ReverseMap();
+            CreateMap<Slider, CreateSliderViewModel>().ReverseMap();
+            CreateMap<Slider, UpdateSliderViewModel>().ReverseMap();
+
+
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<Category, CreateCategoryViewModel>().ReverseMap();
             CreateMap<Category, UpdateCategoryViewModel>().ReverseMap();
