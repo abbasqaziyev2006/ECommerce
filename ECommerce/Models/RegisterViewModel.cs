@@ -13,6 +13,4 @@ public class RegisterViewModel
     [DataType(DataType.Password)]
     [Compare("Password")]
     public required string ConfirmPassword { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
 }
