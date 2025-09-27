@@ -6,7 +6,6 @@ namespace ECommerce.BLL.ViewModels
     {
         public Logo Logo { get; set; } = null!;
         public ContactInfoViewModel ContactInfo { get; set; } = null!;
-        public SearchInfo? SearchInfo { get; set; }
         public List<CategoryViewModel> Categories { get; set; } = new();
         
     }
