@@ -21,7 +21,6 @@
   <ItemGroup>
     <Folder Include="Views\Cart\" />
     <Folder Include="Views\Wishlist\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
 
   <ItemGroup>

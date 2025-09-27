@@ -20,7 +20,7 @@ public partial class CategoryController
 
             ViewBag.ProductCount = model.Products.Count;
 
-            model.Products = model.Products.Take(3).ToList();
+            model.Products = model.Products.Take(4).ToList();
 
             return View(model);
         }
@@ -29,7 +29,7 @@ public partial class CategoryController
         {
             var products = await _productService.GetAllAsync(include: q => q.Include(p => p.Category!));
 
-            var pagedProducts = products.Skip(skip).Take(3).ToList();
+            var pagedProducts = products.Skip(skip).Take(4).ToList();
 
             return PartialView("_ProductPartialForLoadMore", pagedProducts);
         }
