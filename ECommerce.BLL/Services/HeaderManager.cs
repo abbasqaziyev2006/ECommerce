@@ -25,9 +25,7 @@ public class HeaderManager : IHeaderService
             //.OrderByDescending(x => x.CreatedAt)
             //.FirstOrDefaultAsync() ?? new ContactInfo { Phone = "000-00-00", Email = "something@mail.com" },
 
-            SearchInfo = await _dbContext.SearchInfos
-            .OrderByDescending(x => x.CreatedAt)
-            .FirstOrDefaultAsync() ?? new SearchInfo()
+           
         };
 
         return headerViewModel;

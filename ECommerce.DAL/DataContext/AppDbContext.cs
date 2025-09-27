@@ -33,7 +33,6 @@ namespace ECommerce.DAL.DataContext
         public DbSet<Language> Languages { get; set; } = null!;
         public DbSet<ProductSize> ProductSizes { get; set; } = null!;
         public DbSet<ContactInfo> ContactInfos { get; set; } = null!;
-        public DbSet<SearchInfo> SearchInfos { get; set; } = null!;
         public DbSet<Tag> Tags { get; set; } = null!;
         public DbSet<ProductTag> ProductTags { get; set; } = null!;
         public DbSet<Logo> Logos { get; set; } = null!;
