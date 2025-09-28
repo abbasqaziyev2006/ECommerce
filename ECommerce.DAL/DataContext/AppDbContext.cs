@@ -35,7 +35,6 @@ namespace ECommerce.DAL.DataContext
         public DbSet<ContactInfo> ContactInfos { get; set; } = null!;
         public DbSet<Tag> Tags { get; set; } = null!;
         public DbSet<ProductTag> ProductTags { get; set; } = null!;
-        public DbSet<Logo> Logos { get; set; } = null!;
         public DbSet<Social> Socials { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {

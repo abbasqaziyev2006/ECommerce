@@ -16,12 +16,15 @@ public class FooterManager : IFooterService
     {
         var footerViewModel = new FooterViewModel
         {
-            //Logo = await _dbContext.Logos
-            //.OrderByDescending(x => x.CreatedAt)
-            //.FirstOrDefaultAsync(),
+
 
             Socials = await _dbContext.Socials.ToListAsync(),
-           
+            Currencies = await _dbContext.Currencies.ToListAsync(),
+            ContactInfo = await _dbContext.ContactInfos.FirstOrDefaultAsync(),
+            Languages = await _dbContext.Languages.ToListAsync(),
+            Categories = await _dbContext.Categories.ToListAsync()
+
+
         };
 
         return footerViewModel;
