@@ -319,32 +319,6 @@ namespace ECommerce.DAL.Migrations
                     b.ToTable("Languages");
                 });
 
-            modelBuilder.Entity("ECommerce.DAL.DataContext.Entities.Logo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LogoPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdateAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Logos");
-                });
-
             modelBuilder.Entity("ECommerce.DAL.DataContext.Entities.Order", b =>
                 {
                     b.Property<int>("Id")

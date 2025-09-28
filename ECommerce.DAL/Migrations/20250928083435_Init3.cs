@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ECommerce.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class Init2 : Migration
+    public partial class Init3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -140,22 +140,6 @@ namespace ECommerce.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Languages", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Logos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LogoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Logos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -668,9 +652,6 @@ namespace ECommerce.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Languages");
-
-            migrationBuilder.DropTable(
-                name: "Logos");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");
