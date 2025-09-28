@@ -2,8 +2,8 @@
 {
     public class ShopViewModel
     {
-        public List<ProductViewModel> Products { get; set; } = new List<ProductViewModel>();
-        public List<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
+        public List<ProductViewModel> Products { get; set; } = [];
+        public List<CategoryViewModel> Categories { get; set; } = [];
         public IList<string> TagNames { get; set; } = [];
     }
 }

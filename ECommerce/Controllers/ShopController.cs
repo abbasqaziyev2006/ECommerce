@@ -1,37 +1,45 @@
 using ECommerce.BLL.Services.Contracts;
+using ECommerce.BLL.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
-public partial class CategoryController
-{
+
     public class ShopController : Controller
     {
-        private readonly IShopService _shopService;
+        private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
 
-        public ShopController(IShopService shopService, IProductService productService)
+        public ShopController(ICategoryService categoryService, IProductService productService)
         {
-            _shopService = shopService;
+            _categoryService = categoryService;
             _productService = productService;
         }
         public async Task<IActionResult> Index()
         {
-            var model = await _shopService.GetShopViewModelAsync();
+            var categories = await _categoryService.GetAllAsync();
+            var products = await _productService.GetAllAsync(include:
+                x => x.Include(h => h.ProductSizes));
+            products = products.Take(1).ToList();
 
-            ViewBag.ProductCount = model.Products.Count;
-
-            model.Products = model.Products.Take(4).ToList();
+            var model = new ShopViewModel
+            {
+                Products = products,
+                Categories = categories,
+            };
 
             return View(model);
         }
 
-        public async Task<IActionResult> Partial(int skip)
+        public async Task<IActionResult> LoadMore(int skip)
         {
-            var products = await _productService.GetAllAsync(include: q => q.Include(p => p.Category!));
+            var products = await _productService.GetAllAsync(include:
+                x => x.Include(h => h.ProductSizes));
+            products = products.Skip(skip).Take(1).ToList();
 
-            var pagedProducts = products.Skip(skip).Take(4).ToList();
+            var json = JsonConvert.SerializeObject(products);
 
-            return PartialView("_ProductPartialForLoadMore", pagedProducts);
+            return Json(json);
         }
     }
-}
+
