@@ -2,7 +2,7 @@
 
 namespace ECommerce.DAL.Repositories.Contracts
 {
-    public interface IContactInfoRepository : IRepository<ContactInfo>
+    public interface IBioRepository : IRepository<Bio>
     {
     }
 }

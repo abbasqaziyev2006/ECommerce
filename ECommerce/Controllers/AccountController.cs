@@ -1,6 +1,7 @@
 ﻿using ECommerce.BLL.Constants;
 using ECommerce.BLL.Services;
 using ECommerce.DAL.DataContext.Entities;
+using ECommerce.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

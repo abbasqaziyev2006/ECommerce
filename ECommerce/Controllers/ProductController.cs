@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.Controllers
+namespace  ECommerce.MVC.Controllers
 {
     public class ProductController : Controller
     {

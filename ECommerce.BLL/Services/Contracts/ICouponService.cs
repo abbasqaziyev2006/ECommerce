@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.BLL.Services.Contracts
 {
-    public interface ICouponService : ICrudService<Coupon, CreateCouponViewModel, UpdateCouponViewModel, CouponViewModel>
+    public interface ICouponService : ICrudService<Coupon, CouponViewModel, CreateCouponViewModel, UpdateCouponViewModel>
     {
     }
 }

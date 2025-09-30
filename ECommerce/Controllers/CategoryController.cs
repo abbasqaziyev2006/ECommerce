@@ -2,19 +2,23 @@ using ECommerce.BLL.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-public partial class CategoryController : Controller
+namespace ECommerce.MVC.Controllers
 {
-    private readonly ICategoryService _categoryService;
-
-    public CategoryController(ICategoryService categoryService)
+    public class CategoryController : Controller
     {
-        _categoryService = categoryService;
-    }
 
-    public async Task<IActionResult> Index()
-    {
-        var categories = await _categoryService.GetAllAsync(include: x => x.Include(x => x.Products));
+        private readonly ICategoryService _categoryService;
 
-        return Json(categories);
+        public CategoryController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var categories = await _categoryService.GetAllAsync(include: x => x.Include(x => x.Products));
+
+            return Json(categories);
+        }
     }
 }

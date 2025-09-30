@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.BLL.Services.Contracts
 {
-    public interface ICurrencyService : ICrudService<Currency, CreateCurrencyViewModel, UpdateCurrencyViewModel, CurrencyViewModel>
+    public interface ICurrencyService : ICrudService<Currency, CurrencyViewModel, CreateCurrencyViewModel, UpdateCurrencyViewModel>
     {
 
     }

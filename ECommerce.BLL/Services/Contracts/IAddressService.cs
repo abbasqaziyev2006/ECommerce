@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.BLL.Services.Contracts
 {
-    public interface IAddressService : ICrudService<Address, CreateAddressViewModel, UpdateAddressViewModel, AddressViewModel>
+    public interface IAddressService : ICrudService<Address, AddressViewModel,CreateAddressViewModel, UpdateAddressViewModel>
     {
 
     }

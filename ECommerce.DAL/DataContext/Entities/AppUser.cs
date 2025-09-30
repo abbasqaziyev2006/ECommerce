@@ -9,7 +9,7 @@ namespace ECommerce.DAL.DataContext.Entities
 
         public List<Address> Addresses { get; set; } = [];
         public List<Order> Orders { get; set; } = [];
-        public List<Wishlist> Wishlist { get; set; } = [];
+        public List<WishlistItem> WishlisItems { get; set; } = [];
 
     }
 }

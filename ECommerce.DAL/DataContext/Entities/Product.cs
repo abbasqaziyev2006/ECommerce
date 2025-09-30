@@ -15,11 +15,11 @@
         public int CategoryId { get; set; }
 
         public Category? Category { get; set; }
-        public List<OrderItem> OrderItems { get; set; } = [];
         public decimal DiscountPrice { get;  set; }
-        public  List<ProductSize> ProductSizes { get; set; } = []; 
-        public List<ProductTag> ProductTags { get; set; } = [];
-        public List<ProductImage> Images { get; set; } = [];
+        public ICollection<ProductImage> Images { get; set; } = [];
+        public ICollection<OrderItem> OrderItems { get; set; } = [];
+        public ICollection<WishlistItem> WishlistItems { get; set; } = [];
+        public ICollection<ProductVariant> Variants { get; set; } = [];
 
     }
 }

@@ -4,9 +4,9 @@ using ECommerce.DAL.Repositories.Contracts;
 
 namespace ECommerce.DAL.Repositories
 {
-    public class WishlistRepository : EfCoreRepository<Wishlist>, IWishlistRepository
+    public class WishlistItemRepository : EfCoreRepository<WishlistItem>, IWishlistRepository
     {
-        public WishlistRepository(AppDbContext dbContext) : base(dbContext)
+        public WishlistItemRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -39,8 +39,6 @@ namespace ECommerce.BLL.Services
 
             productViewModel.CategoryName = product.Category?.Name;
 
-            productViewModel.TagNames = product.ProductTags.Select(pt => pt.Tag!.Name).ToList();
-
             return productViewModel;
         }
     }

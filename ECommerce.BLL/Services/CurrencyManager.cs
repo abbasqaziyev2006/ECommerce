@@ -6,7 +6,7 @@ using ECommerce.DAL.Repositories.Contracts;
 
 namespace ECommerce.BLL.Services
 {
-    public class CurrencyManager : CrudManager<Currency, CreateCurrencyViewModel, UpdateCurrencyViewModel, CurrencyViewModel>, ICurrencyService
+    public class CurrencyManager : CrudManager<Currency, CurrencyViewModel, CreateCurrencyViewModel, UpdateCurrencyViewModel>, ICurrencyService
     {
         public CurrencyManager(IRepository<Currency> repository, IMapper mapper) : base(repository, mapper)
         {

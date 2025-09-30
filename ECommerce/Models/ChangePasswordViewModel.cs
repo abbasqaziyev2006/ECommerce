@@ -1,13 +1,15 @@
 using System.ComponentModel.DataAnnotations;
-
-public class ChangePasswordViewModel
+namespace ECommerce.Models
 {
-    public required string CurrentPassword { get; set; }
+    public class ChangePasswordViewModel
+    {
+        public required string CurrentPassword { get; set; }
 
-    [DataType(DataType.Password)]
-    public required string NewPassword { get; set; }
+        [DataType(DataType.Password)]
+        public required string NewPassword { get; set; }
 
-    [DataType(DataType.Password)]
-    [Compare(nameof(NewPassword))]
-    public required string ConfirmPassword { get; set; }
+        [DataType(DataType.Password)]
+        [Compare(nameof(NewPassword))]
+        public required string ConfirmPassword { get; set; }
+    }
 }

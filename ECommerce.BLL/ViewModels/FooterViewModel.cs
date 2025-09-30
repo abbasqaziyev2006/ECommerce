@@ -1,13 +1,11 @@
 ﻿using ECommerce.DAL.DataContext.Entities;
-
 namespace ECommerce.BLL.ViewModels
 {
     public class FooterViewModel
     {
-        public List<Category> Categories { get; set; } = new List<Category>();
-        public ContactInfo? ContactInfo { get; set; } 
-        public List<Language> Languages { get; set; } = new List<Language>();
-        public List<Currency> Currencies { get; set; }= new List<Currency>();
-        public List<Social> Socials { get; set; }= new List<Social>();
+        public BioViewModel? Bio { get; set; }
+        public List<CurrencyViewModel> Currencies { get; set; } = [];
+        public List<LanguageViewModel> Languages { get; set; } = [];
+        public List<SocialViewModel> Socials { get; set; } = [];
     }
 }

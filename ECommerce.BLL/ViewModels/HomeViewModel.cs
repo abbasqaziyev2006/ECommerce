@@ -2,7 +2,7 @@
 namespace ECommerce.BLL.ViewModels;
 public class HomeViewModel
 {
-    public ContactInfoViewModel? ContactInfos { get; set; }
+    public BioViewModel? ContactInfos { get; set; }
     public List<SocialViewModel>? Socials { get; set; } = [];
     public List<CategoryViewModel>? Categories { get; set; } = [];
     public List<LanguageViewModel>? Languages { get; set; } = [];

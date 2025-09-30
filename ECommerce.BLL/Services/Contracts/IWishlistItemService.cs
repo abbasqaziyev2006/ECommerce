@@ -3,7 +3,8 @@ using ECommerce.DAL.DataContext.Entities;
 
 namespace ECommerce.BLL.Services.Contracts
 {
-    public interface IWishlistItemService : ICrudService<Wishlist, CreateWishlistViewModel, UpdateWishlistViewModel, WishlistViewModel> {
+    public interface IWishlistItemService : ICrudService<WishlistItem, WishlistItemViewModel, CreateWishlistItemViewModel, UpdateWishlistItemViewModel> 
+    {
     }
 }
 

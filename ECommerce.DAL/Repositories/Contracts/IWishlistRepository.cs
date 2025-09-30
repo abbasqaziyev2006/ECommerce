@@ -2,7 +2,7 @@
 
 namespace ECommerce.DAL.Repositories.Contracts
 {
-    public interface IWishlistRepository : IRepository<Wishlist>
+    public interface IWishlistRepository : IRepository<WishlistItem>
     {
     }
 }

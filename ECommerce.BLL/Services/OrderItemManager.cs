@@ -7,7 +7,7 @@ using ECommerce.BLL.Services;
 
 namespace ECommerce.BLL.Services
 {
-    public class OrderItemManager : CrudManager<OrderItem, CreateOrderItemViewModel, UpdateOrderItemViewModel, OrderItemViewModel>, IOrderItemService
+    public class OrderItemManager : CrudManager<OrderItem, OrderItemViewModel, CreateOrderItemViewModel, UpdateOrderItemViewModel>, IOrderItemService
     {
         public OrderItemManager(IRepository<OrderItem> repository, IMapper mapper) : base(repository, mapper)
         {

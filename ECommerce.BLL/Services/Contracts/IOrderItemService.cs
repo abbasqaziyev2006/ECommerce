@@ -3,7 +3,7 @@ using ECommerce.DAL.DataContext.Entities;
 
 namespace ECommerce.BLL.Services.Contracts
 {
-    public interface IOrderItemService : ICrudService<OrderItem, CreateOrderItemViewModel, UpdateOrderItemViewModel, OrderItemViewModel>
+    public interface IOrderItemService : ICrudService<OrderItem, OrderItemViewModel, CreateOrderItemViewModel, UpdateOrderItemViewModel>
     {
     }
 }

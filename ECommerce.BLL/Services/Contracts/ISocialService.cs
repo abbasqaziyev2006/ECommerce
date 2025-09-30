@@ -2,7 +2,7 @@
 
 namespace ECommerce.BLL.Services.Contracts
 {
-    public interface ISocialService : ICrudService<Social, CreateSocialViewModel, UpdateSocialViewModel, SocialViewModel> 
+    public interface ISocialService : ICrudService<Social, SocialViewModel, CreateSocialViewModel, UpdateSocialViewModel> 
     {
     }
 }

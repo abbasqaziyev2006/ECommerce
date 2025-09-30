@@ -4,6 +4,6 @@ namespace ECommerce.BLL.Services.Contracts
 {
     public interface IShopService
     {
-        Task<ShopViewModel> GetShopViewModelAsync();
+        Task<ShopViewModel> GetShopAsync();
     }
 }

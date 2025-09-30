@@ -28,7 +28,6 @@ namespace ECommerce.DAL.Repositories
             return await _dbContext.Products
                 .Include(p => p.Category)
                 .Include(p => p.Images)
-                .Include(p => p.ProductTags).ThenInclude(pt => pt.Tag)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
     }

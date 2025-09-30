@@ -5,7 +5,7 @@ using ECommerce.DAL.DataContext.Entities;
 using ECommerce.DAL.Repositories.Contracts;
 namespace ECommerce.BLL.Services
 {
-    public class CouponManager : CrudManager<Coupon, CreateCouponViewModel, UpdateCouponViewModel, CouponViewModel>, ICouponService
+    public class CouponManager : CrudManager<Coupon, CouponViewModel, CreateCouponViewModel, UpdateCouponViewModel>, ICouponService
     {
         public CouponManager(IRepository<Coupon> repository, IMapper mapper) : base(repository, mapper) { }
     }

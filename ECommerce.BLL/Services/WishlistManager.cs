@@ -7,8 +7,8 @@ using ECommerce.DAL.Repositories.Contracts;
 
 namespace ECommerce.BLL.Services
 {
-    public class WishlistManager: CrudManager<Wishlist, CreateWishlistViewModel, UpdateWishlistViewModel, WishlistViewModel>, IWishlistItemService
+    public class WishlistManager : CrudManager<WishlistItem, WishlistItemViewModel, CreateWishlistItemViewModel, UpdateWishlistItemViewModel>, IWishlistItemService
     {
-        public WishlistManager(IRepository<Wishlist> repository, IMapper mapper) : base(repository, mapper) { }
+        public WishlistManager(IRepository<WishlistItem> repository, IMapper mapper) : base(repository, mapper) { }
     }
 }

@@ -11,6 +11,9 @@
 
     public class CreateSocialViewModel
     {
+        public string? Name { get; set; }
+        public string? Class { get; set; }
+        public string? Url { get; set; }
     }
 
     public class UpdateSocialViewModel

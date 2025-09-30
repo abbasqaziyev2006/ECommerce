@@ -3,8 +3,8 @@ using ECommerce.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ECommerce.Controllers
-{
+namespace ECommerce.MVC.Controllers
+{ 
     public class HomeController : Controller
     {
         private readonly IHomeService _homeService;

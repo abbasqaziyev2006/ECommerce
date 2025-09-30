@@ -1,13 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 
-public class LoginViewModel
+namespace ECommerce.Models
 {
-    public required string Username { get; set; }
-    [DataType(DataType.Password)]
-    public required string Password { get; set; }
+    public class LoginViewModel
+    {
+        public required string Username { get; set; }
+        [DataType(DataType.Password)]
+        public required string Password { get; set; }
 
-    public string? ReturnUrl { get; set; }
-    public bool RememberMe { get; set; }
+        public string? ReturnUrl { get; set; }
+        public bool RememberMe { get; set; }
+    }
 }
-
 

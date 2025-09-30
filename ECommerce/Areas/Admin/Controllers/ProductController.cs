@@ -80,20 +80,7 @@ namespace ECommerce.MVC.Areas.Admin.Controllers
             return NoContent();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteProductTag(int id)
-        {
-            var productTag = await _dbContext.ProductTags
-                .Include(x => x.Tag)
-                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (productTag == null) return NotFound();
-
-            _dbContext.ProductTags.Remove(productTag);
-            await _dbContext.SaveChangesAsync();
-
-            return Json(new { productTag.Tag!.Id, productTag.Tag.Name });
-        }
 
         [HttpPost]
         public async Task<IActionResult> DeleteProductImage(int id)

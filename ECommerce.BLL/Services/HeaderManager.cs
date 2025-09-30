@@ -6,24 +6,28 @@ using Microsoft.EntityFrameworkCore;
 
 public class HeaderManager : IHeaderService
 {
-    private readonly AppDbContext _dbContext;
+    private readonly ILanguageService _languageService;
+    private readonly ICurrencyService _currencyService;
+    private readonly ISocialService _socialService;
 
-    public HeaderManager(AppDbContext dbContext)
+    public HeaderManager(ISocialService socialService, ICurrencyService currencyService, ILanguageService languageService)
     {
-        _dbContext = dbContext;
+        _socialService = socialService;
+        _currencyService = currencyService;
+        _languageService = languageService;
     }
 
     public async Task<HeaderViewModel> GetHeaderAsync()
     {
+        var socials = await _socialService.GetAllAsync();
+        var currencies = await _currencyService.GetAllAsync(predicate: x => !x.IsDeleted);
+        var languages = await _languageService.GetAllAsync(predicate: x => !x.IsDeleted);
+
         var headerViewModel = new HeaderViewModel
         {
-         
-
-            //ContactInfo = await _dbContext.ContactInfos
-            //.OrderByDescending(x => x.CreatedAt)
-            //.FirstOrDefaultAsync() ?? new ContactInfo { Phone = "000-00-00", Email = "something@mail.com" },
-
-           
+            Socials = socials.ToList(),
+            Currencies = currencies.ToList(),
+            Languages = languages.ToList()
         };
 
         return headerViewModel;

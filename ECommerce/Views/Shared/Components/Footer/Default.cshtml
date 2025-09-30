@@ -1,7 +1,6 @@
 ﻿﻿@{
 FooterViewModel model = Model;
-var contactInfo = model.ContactInfo;
-var categories = model.Categories;
+var bio = model.Bio;
 var languages = model.Languages;
 var currencies = model.Currencies;
 var socials = model.Socials;
@@ -23,13 +22,12 @@ var socials = model.Socials;
                             </div>
                             <ul>
                                 <li>
-                                    <p>@contactInfo?.Address</p>
+                                    <p>@Model.Bio?.Address</p>
                                 </li>
                                 <li>
-                                    <p>Email: <a href="#">@contactInfo?.Email</a></p>
-                                </li>
+                                    <p>Email: <a href="#">@Model.Bio?.Email</a></p>
                                 <li>
-                                    <p>Phone: <a href="#">@contactInfo?.Phone</a></p>
+                                    <p>Phone: <a href="#">@Model.Bio?.Phone</a></p>
                                 </li>
                             </ul>
                             <a href="contact-1.html" class="tf-btn btn-line">
@@ -148,27 +146,20 @@ var socials = model.Socials;
                                 <div class="tf-cur">
                                     <div class="tf-currencies">
                                         <select class="image-select center style-default type-currencies color-white">
-                                            <option data-thumbnail="images/country/fr.svg">
-                                                EUR € | France
-                                            </option>
-                                            <option data-thumbnail="images/country/de.svg">
-                                                EUR € | Germany
-                                            </option>
-                                            <option selected data-thumbnail="images/country/us.svg">
-                                                USD $ |
-                                                United States
-                                            </option>
-                                            <option data-thumbnail="images/country/vn.svg">
-                                                VND ₫ | Vietnam
-                                            </option>
+                                            @foreach (var currencyItem in Model.Currencies)
+                                            {
+                                                <option data-thumbnail="/images/country/@currencyItem.IconName">
+                                                    @currencyItem.CurrencyName @currencyItem.Symbol | @currencyItem.CountryName
+                                                </option>
+                                            }
                                         </select>
                                     </div>
                                     <div class="tf-languages">
-                                        <select class="image-select center style-default type-languages color-white">
-                                            <option>English</option>
-                                            <option>العربية</option>
-                                            <option>简体中文</option>
-                                            <option>اردو</option>
+                                        select class="image-select center style-default type-languages">
+                                        @foreach (var language in Model.Languages)
+                                        {
+                                            <option>@language.Name</option>
+                                        }
                                         </select>
                                     </div>
                                 </div>
@@ -183,7 +174,7 @@ var socials = model.Socials;
                 <div class="row">
                     <div class="col-12">
                         <div class="footer-bottom-wrap d-flex gap-20 flex-wrap justify-content-between align-items-center">
-                            <div class="footer-menu_item">@contactInfo.Copyright</div>
+                            <div class="footer-menu_item"></div>
                             <div class="tf-payment">
                                 <img src="~/images/payments/visa.png" alt="">
                                 <img src="~/images/payments/img-1.png" alt="">

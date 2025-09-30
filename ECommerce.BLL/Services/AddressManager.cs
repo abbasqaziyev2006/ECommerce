@@ -6,7 +6,7 @@ using ECommerce.DAL.Repositories.Contracts;
 
 namespace ECommerce.BLL.Services
 {
-    public class AddressManager : CrudManager<Address, CreateAddressViewModel, UpdateAddressViewModel, AddressViewModel>, IAddressService
+    public class AddressManager : CrudManager<Address, AddressViewModel, CreateAddressViewModel, UpdateAddressViewModel>, IAddressService
     {
         public AddressManager(IRepository<Address> repository, IMapper mapper) : base(repository, mapper) 
         {

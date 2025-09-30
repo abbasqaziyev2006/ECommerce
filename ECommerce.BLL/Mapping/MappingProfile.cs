@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ECommerce.BLL.ViewModels.ContactInfoViewModel;
+using static ECommerce.BLL.ViewModels.BioViewModel;
 
 namespace ECommerce.BLL.Mapping
 {
@@ -47,10 +47,6 @@ namespace ECommerce.BLL.Mapping
             CreateMap<Order, CreateOrderViewModel>().ReverseMap();
             CreateMap<Order, UpdateOrderViewModel>().ReverseMap();
 
-       
-            CreateMap<ProductSize, ProductSizeViewModel>().ReverseMap();
-            CreateMap<ProductSize, CreateProductSizeViewModel>().ReverseMap();
-            CreateMap<ProductSize, UpdateProductSizeViewModel>().ReverseMap();
 
             CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<Product, CreateProductViewModel>().ReverseMap();
@@ -60,13 +56,13 @@ namespace ECommerce.BLL.Mapping
             CreateMap<Social, CreateSocialViewModel>().ReverseMap();
             CreateMap<Social, UpdateSocialViewModel>().ReverseMap();
 
-            CreateMap<ContactInfo, ContactInfoViewModel>().ReverseMap();
-            CreateMap<ContactInfo, CreateContactInfoViewModel>().ReverseMap();
-            CreateMap<ContactInfo, UpdateContactInfoViewModel>().ReverseMap();
+            CreateMap<Bio, BioViewModel>().ReverseMap();
+            CreateMap<Bio, CreateBioViewModel>().ReverseMap();
+            CreateMap<Bio, UpdateBioViewModel>().ReverseMap();
 
-            CreateMap<Wishlist, WishlistViewModel>().ReverseMap();
-            CreateMap<Wishlist, CreateWishlistViewModel>().ReverseMap();
-            CreateMap<Wishlist, UpdateWishlistViewModel>().ReverseMap();
+            CreateMap<WishlistItem, WishlistItemViewModel>().ReverseMap();
+            CreateMap<WishlistItem, CreateWishlistItemViewModel>().ReverseMap();
+            CreateMap<WishlistItem, UpdateWishlistItemViewModel>().ReverseMap();
 
 
         }

@@ -15,7 +15,7 @@ namespace ECommerce.BLL.Services
             _categoryService = categoryService;
         }
 
-        public async Task<ShopViewModel> GetShopViewModelAsync()
+        public async Task<ShopViewModel> GetShopAsync()
         {
             var products = await _productService.GetAllAsync(include: q => q.Include(p => p.Category!));
 

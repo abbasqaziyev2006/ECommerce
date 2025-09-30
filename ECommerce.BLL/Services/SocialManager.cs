@@ -7,7 +7,7 @@ using ECommerce.BLL.Services;
 
 namespace ECommerce.BLL.Services
 {
-    public class SocialManager : CrudManager<Social, CreateSocialViewModel, UpdateSocialViewModel, SocialViewModel>, ISocialService
+    public class SocialManager : CrudManager<Social, SocialViewModel, CreateSocialViewModel, UpdateSocialViewModel>, ISocialService
     {
         public SocialManager(IRepository<Social> repository, IMapper mapper) : base(repository, mapper) { }
     }

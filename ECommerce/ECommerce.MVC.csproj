@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Cart\**" />
+    <Compile Remove="Views\Wishlist\**" />
+    <Content Remove="Views\Cart\**" />
+    <Content Remove="Views\Wishlist\**" />
+    <EmbeddedResource Remove="Views\Cart\**" />
+    <EmbeddedResource Remove="Views\Wishlist\**" />
+    <None Remove="Views\Cart\**" />
+    <None Remove="Views\Wishlist\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.20">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,11 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.BLL\ECommerce.BLL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Cart\" />
-    <Folder Include="Views\Wishlist\" />
   </ItemGroup>
 
   <ItemGroup>

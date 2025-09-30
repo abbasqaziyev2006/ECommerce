@@ -1,7 +1,5 @@
 ﻿﻿@{
 HeaderViewModel model = Model;
-var contactInfo = model.ContactInfo;
-var categories = model.Categories;
 var languages = model.Languages;
 var currencies = model.Currencies;
 var basketItems = model.BasketItems;
@@ -30,7 +28,11 @@ var basketTotalPrice = basketItems?.Sum(x => x.Count * x.Price);
                 <nav class="box-navigation text-center">
                     <ul class="box-nav-ul d-flex align-items-center justify-content-center gap-30">
                         <li class="menu-item">
-                            <a href="#" class="item-link">Home</a>
+                            <a class="item-link" asp-controller="home" asp-action="Index">Home<i class="icon icon-arrow-down"></i></a>
+
+                        </li>
+                        <li class="menu-item">
+                            <a class="item-link" asp-controller="shop" asp-action="Index">Shop<i class="icon icon-arrow-down"></i></a>
                             <div class="sub-menu mega-menu">
                                 <div class="container">
                                     <div class="row-demo">
