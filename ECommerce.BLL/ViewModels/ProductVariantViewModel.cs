@@ -8,7 +8,7 @@
         public string? CoverImageName { get; set; }
         public IList<string> ImageNames { get; set; } = [];
     }
-    public class ProductVariantCreateViewModel { }
-    public class ProductVariantUpdateViewModel { }
+    public class CreateProductVariantViewModel { }
+    public class UpdateProductVariantViewModel { }
 
 }
