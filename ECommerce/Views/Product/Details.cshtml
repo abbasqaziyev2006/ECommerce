@@ -1,4 +1,4 @@
-﻿@* @model ProductViewModel
+﻿@model ProductViewModel
 <!-- breadcrumb -->
 <div class="tf-breadcrumb">
     <div class="container">
@@ -39,11 +39,11 @@
                             <div dir="ltr" class="swiper tf-product-media-thumbs other-image-zoom"
                                  data-direction="vertical">
                                 <div class="swiper-wrapper stagger-wrap">
-                                    @foreach (var variant in Model.ProductVariants ?? [])
+                                    @foreach (var variant in Model.Variants ?? [])
                                     {
-                                        @foreach (var image in variant.ImageNames ?? [])
+                                        @foreach (var image in variant.Images ?? [])
                                         {
-                                            <div class="swiper-slide stagger-item" data-color="@variant.ColorName?.ToLower()">
+                                            <div class="swiper-slide stagger-item" data-color="beige">
                                                 <div class="item">
                                                     <img class="lazyload"
                                                          data-src="/images/products/@image"
@@ -56,11 +56,11 @@
                             </div>
                             <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started">
                                 <div class="swiper-wrapper">
-                                    @foreach (var variant in Model.ProductVariants ?? [])
+                                    @foreach (var variant in Model.Variants ?? [])
                                     {
-                                        @foreach (var item in variant.ImageNames ?? [])
+                                        @foreach (var item in variant.Images ?? [])
                                         {
-                                            <div class="swiper-slide" data-color="@variant.ColorName?.ToLower()">
+                                            <div class="swiper-slide" data-color="beige">
                                                 <a href="~/images/products/@item" target="_blank" class="item"
                                                    data-pswp-width="770px" data-pswp-height="1075px">
                                                     <img class="tf-image-zoom lazyload"
@@ -114,20 +114,33 @@
                             <div class="tf-product-info-variant-picker">
                                 <div class="variant-picker-item">
                                     <div class="variant-picker-label">
-                                        Color: <span class="fw-6 variant-picker-label-value value-currentColor">
-                                            @Model.ProductVariants?.FirstOrDefault()?.ColorName
-                                        </span>
+                                        Color: <span class="fw-6 variant-picker-label-value value-currentColor">Beige</span>
                                     </div>
                                     <div class="variant-picker-values">
-                                        @foreach (var variant in Model.ProductVariants ?? [])
-                                        {
-                                            <input id="values-@variant.ColorName?.ToLower()" type="radio" name="color1" checked>
-                                            <label class="hover-tooltip radius-60 color-btn" for="values-@variant.ColorName?.ToLower()"
-                                                   data-color="@variant.ColorName?.ToLower()" data-value="@variant.ColorName">
-                                                <span class="btn-checkbox bg-color-beige"></span>
-                                                <span class="tooltip">@variant.ColorName</span>
-                                            </label>
-                                        }
+                                        <input id="values-beige" type="radio" name="color1" checked>
+                                        <label class="hover-tooltip radius-60 color-btn" for="values-beige"
+                                               data-color="beige" data-value="Beige">
+                                            <span class="btn-checkbox bg-color-beige"></span>
+                                            <span class="tooltip">Beige</span>
+                                        </label>
+                                        <input id="values-black" type="radio" name="color1">
+                                        <label class=" hover-tooltip radius-60 color-btn" data-price="9"
+                                               for="values-black" data-color="black" data-value="Black">
+                                            <span class="btn-checkbox bg-color-black"></span>
+                                            <span class="tooltip">Black</span>
+                                        </label>
+                                        <input id="values-blue" type="radio" name="color1">
+                                        <label class="hover-tooltip radius-60 color-btn" data-price="10"
+                                               for="values-blue" data-color="blue" data-value="Blue">
+                                            <span class="btn-checkbox bg-color-blue"></span>
+                                            <span class="tooltip">Blue</span>
+                                        </label>
+                                        <input id="values-white" type="radio" name="color1">
+                                        <label class="hover-tooltip radius-60 color-btn" data-price="12"
+                                               for="values-white" data-color="white" data-value="White">
+                                            <span class="btn-checkbox bg-color-white"></span>
+                                            <span class="tooltip">White</span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="variant-picker-item">
@@ -1579,4 +1592,3 @@
     </div>
 </section>
 <!-- /recent -->
- *@

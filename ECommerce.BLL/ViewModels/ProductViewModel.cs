@@ -18,9 +18,8 @@ namespace ECommerce.BLL.ViewModels
 
         public string? CategoryName { get; set; }
 
-        //public CategoryViewModel? Category { get; set; }
-        public IList<string> TagNames { get; set; } = [];
-        public IList<string> ImageNames { get; set; } = [];
+        public List<ProductImageViewModel> Images { get; set; } = new();
+        public List<ProductVariantViewModel> Variants { get; set; } = new();
     }
 
     public class CreateProductViewModel

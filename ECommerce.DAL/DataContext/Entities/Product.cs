@@ -16,10 +16,10 @@
 
         public Category? Category { get; set; }
         public decimal DiscountPrice { get;  set; }
-        public ICollection<ProductImage> Images { get; set; } = [];
+        public ICollection<ProductImage> ProductImages { get; set; } = [];
         public ICollection<OrderItem> OrderItems { get; set; } = [];
         public ICollection<WishlistItem> WishlistItems { get; set; } = [];
-        public ICollection<ProductVariant> Variants { get; set; } = [];
+        public ICollection<ProductVariant> ProductVariants { get; set; } = [];
 
     }
 }

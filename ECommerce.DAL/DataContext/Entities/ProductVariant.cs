@@ -8,4 +8,5 @@ public class ProductVariant : Entity
     public int StockQuantity { get; set; }
     public Product? Product { get; set; }
     public ICollection<OrderItem> OrderItems { get; set; } = [];
+    public List<ProductImage> ProductImages { get; set; } = [];
 }

@@ -9,26 +9,17 @@ namespace  ECommerce.MVC.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        private readonly UserManager<AppUser> _userManager;
 
-        public ProductController(IProductService productService, UserManager<AppUser> userManager)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
-            _userManager = userManager;
         }
 
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Index()
         {
-            int productId = int.Parse(id.Split('-').Last());
-
-            var model = await _productService.GetByIdWithDetailsAsync(productId);
-
-            if (model == null)
-                return NotFound();
-
-            return View(model);
+            return View();
         }
 
-
+      
     }
 }
