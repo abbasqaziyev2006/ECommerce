@@ -3,8 +3,14 @@
     public class CurrencyViewModel
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Symbol { get; set; }
+
+        public string CurrencyName { get; set; } = null!;
+
+        public string Symbol { get; set; } = null!;
+
+        public string CountryName { get; set; } = null!;
+
+        public string IconName { get; set; } = null!;
     }
 
 

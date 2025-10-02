@@ -11,6 +11,7 @@ namespace ECommerce.BLL
             services.AddAutoMapper(confg => confg.AddProfile<MappingProfile>());
 
             services.AddScoped<ICategoryService, CategoryManager>();
+
             services.AddScoped<IHeaderService, HeaderManager>();
             services.AddScoped<IFooterService, FooterManager>();
             services.AddScoped<IProductService, ProductManager>();

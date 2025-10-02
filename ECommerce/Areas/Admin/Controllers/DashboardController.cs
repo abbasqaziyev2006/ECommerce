@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.MVC.Areas.Admin.Controllers
 {
-    public class DashboardController : AdminController
+
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
+    public class DashboardController : Controller
     {
         public IActionResult Index()
         {

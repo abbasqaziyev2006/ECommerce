@@ -268,18 +268,23 @@ namespace ECommerce.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("ExchangeRate")
-                        .HasColumnType("float");
+                    b.Property<string>("CurrencyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
@@ -484,12 +489,17 @@ namespace ECommerce.DAL.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ProductVariantId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ProductVariantId");
 
                     b.ToTable("ProductImages");
                 });
@@ -805,10 +815,14 @@ namespace ECommerce.DAL.Migrations
             modelBuilder.Entity("ECommerce.DAL.DataContext.Entities.ProductImage", b =>
                 {
                     b.HasOne("ECommerce.DAL.DataContext.Entities.Product", "Product")
-                        .WithMany("Images")
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ProductVariant", null)
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductVariantId");
 
                     b.Navigation("Product");
                 });
@@ -886,7 +900,7 @@ namespace ECommerce.DAL.Migrations
             modelBuilder.Entity("ProductVariant", b =>
                 {
                     b.HasOne("ECommerce.DAL.DataContext.Entities.Product", "Product")
-                        .WithMany("Variants")
+                        .WithMany("ProductVariants")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -920,11 +934,11 @@ namespace ECommerce.DAL.Migrations
 
             modelBuilder.Entity("ECommerce.DAL.DataContext.Entities.Product", b =>
                 {
-                    b.Navigation("Images");
-
                     b.Navigation("OrderItems");
 
-                    b.Navigation("Variants");
+                    b.Navigation("ProductImages");
+
+                    b.Navigation("ProductVariants");
 
                     b.Navigation("WishlistItems");
                 });
@@ -932,6 +946,8 @@ namespace ECommerce.DAL.Migrations
             modelBuilder.Entity("ProductVariant", b =>
                 {
                     b.Navigation("OrderItems");
+
+                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

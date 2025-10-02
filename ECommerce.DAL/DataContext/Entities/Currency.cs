@@ -2,8 +2,9 @@
 {
     public class Currency : TimeStample
     {
-        public string Name { get; set; } = null!;
+        public string CurrencyName { get; set; } = null!;
         public string Symbol { get; set; } = null!;
-        public double ExchangeRate { get; set; }
+        public string CountryName { get; set; } = null!;
+        public string IconName { get; set; } = null!;
     }
 }

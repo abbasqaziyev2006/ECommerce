@@ -42,4 +42,8 @@
     <None Include="wwwroot\admin\vendors\.DS_Store" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Category\" />
+  </ItemGroup>
+
 </Project>

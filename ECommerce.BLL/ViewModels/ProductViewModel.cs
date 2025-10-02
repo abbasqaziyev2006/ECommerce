@@ -17,7 +17,7 @@ namespace ECommerce.BLL.ViewModels
         public string? CoverImageName { get; set; }
 
         public string? CategoryName { get; set; }
-
+        public int CategoryId { get; set; }
         public List<ProductImageViewModel> Images { get; set; } = new();
         public List<ProductVariantViewModel> Variants { get; set; } = new();
     }

@@ -12,5 +12,4 @@ namespace ECommerce.BLL.Services
         {
         }
     }
-
 }
