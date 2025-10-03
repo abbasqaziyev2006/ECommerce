@@ -45,6 +45,18 @@ namespace ECommerce.MVC.Controllers
             return View("Index", model);
         }
 
+
+        public async Task<IActionResult> LoadMore(int page = 1)
+        {
+            int pageSize = 4; 
+            var products = await _productService.GetPagedProducts(page, pageSize);
+
+            if (!products.Any())
+                return Content(""); 
+
+            return PartialView("_ProductCardPartial", products);
+        }
+
     }
 }
 

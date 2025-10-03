@@ -20,6 +20,18 @@ namespace  ECommerce.MVC.Controllers
             return View();
         }
 
-      
+        public async Task<IActionResult> Details(string id)
+        {
+            int productId = int.Parse(id.Split('-').Last());
+
+            var model = await _productService.GetAsync(predicate: x => x.Id == productId && !x.IsDeleted,
+                include: x => x
+                .Include(c => c.Category)
+                .Include(pv => pv.ProductVariants)
+                .ThenInclude(i => i.ProductImages)
+                .Include(pv => pv.ProductVariants));
+
+            return View(model);
+        }
     }
 }

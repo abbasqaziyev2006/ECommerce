@@ -43,13 +43,13 @@
                                     {
                                         @foreach (var image in variant.Images ?? [])
                                         {
-                                            <div class="swiper-slide stagger-item" data-color="beige">
+                                            @* <div class="swiper-slide stagger-item" data-color="@variant.ColorName?.ToLower()"> *@
                                                 <div class="item">
                                                     <img class="lazyload"
                                                          data-src="/images/products/@image"
                                                          src="~/images/products/@image" alt="img-product">
                                                 </div>
-                                            </div>
+                                            @* </div> *@
                                         }
                                     }
                                 </div>
@@ -60,7 +60,7 @@
                                     {
                                         @foreach (var item in variant.Images ?? [])
                                         {
-                                            <div class="swiper-slide" data-color="beige">
+                                            @* <div class="swiper-slide" data-color="@variant.ColorName?.ToLower()"> *@
                                                 <a href="~/images/products/@item" target="_blank" class="item"
                                                    data-pswp-width="770px" data-pswp-height="1075px">
                                                     <img class="tf-image-zoom lazyload"
@@ -68,7 +68,7 @@
                                                          data-src="/images/products/@item"
                                                          src="~/images/products/@item" alt="">
                                                 </a>
-                                            </div>
+                                            @* </div> *@
                                         }
                                     }
                                 </div>
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="tf-product-info-price">
-                                <div class="compare-at-price">$@Model.Price</div>
+                                <div class="compare-at-price">$@Model.BasePrice</div>
                             </div>
                             <div class="tf-product-info-liveview">
                                 <div class="liveview-count">20</div>
@@ -114,33 +114,14 @@
                             <div class="tf-product-info-variant-picker">
                                 <div class="variant-picker-item">
                                     <div class="variant-picker-label">
-                                        Color: <span class="fw-6 variant-picker-label-value value-currentColor">Beige</span>
+
+                                        <input type="hidden" id=@("productD" + Model.Id) value="@Model.Variants?.FirstOrDefault()?.Id" />
                                     </div>
                                     <div class="variant-picker-values">
-                                        <input id="values-beige" type="radio" name="color1" checked>
-                                        <label class="hover-tooltip radius-60 color-btn" for="values-beige"
-                                               data-color="beige" data-value="Beige">
-                                            <span class="btn-checkbox bg-color-beige"></span>
-                                            <span class="tooltip">Beige</span>
-                                        </label>
-                                        <input id="values-black" type="radio" name="color1">
-                                        <label class=" hover-tooltip radius-60 color-btn" data-price="9"
-                                               for="values-black" data-color="black" data-value="Black">
-                                            <span class="btn-checkbox bg-color-black"></span>
-                                            <span class="tooltip">Black</span>
-                                        </label>
-                                        <input id="values-blue" type="radio" name="color1">
-                                        <label class="hover-tooltip radius-60 color-btn" data-price="10"
-                                               for="values-blue" data-color="blue" data-value="Blue">
-                                            <span class="btn-checkbox bg-color-blue"></span>
-                                            <span class="tooltip">Blue</span>
-                                        </label>
-                                        <input id="values-white" type="radio" name="color1">
-                                        <label class="hover-tooltip radius-60 color-btn" data-price="12"
-                                               for="values-white" data-color="white" data-value="White">
-                                            <span class="btn-checkbox bg-color-white"></span>
-                                            <span class="tooltip">White</span>
-                                        </label>
+                                        @foreach (var variant in Model.Variants ?? [])
+                                        {
+                                          
+                                        }
                                     </div>
                                 </div>
                                 <div class="variant-picker-item">
@@ -180,13 +161,13 @@
                                 <div class="quantity-title fw-6">Quantity</div>
                                 <div class="wg-quantity">
                                     <span class="btn-quantity btn-decrease">-</span>
-                                    <input type="text" class="quantity-product" name="number" value="1">
+                                    <input id=@("productQuantityDetails" + Model.Id) type="number" min="1" class="quantity-product" name="number" value="1">
                                     <span class="btn-quantity btn-increase">+</span>
                                 </div>
                             </div>
                             <div class="tf-product-info-buy-button">
                                 <form class="">
-                                    <a href="#"
+                                    <a onclick="getQuantityD(@Model.Id, `productD${@Model.Id}`)" href="#"
                                        class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart">
                                         <span>
                                             Add
@@ -1592,3 +1573,7 @@
     </div>
 </section>
 <!-- /recent -->
+
+<script>
+
+</script>

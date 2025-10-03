@@ -37,7 +37,7 @@ namespace ECommerce.DAL
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISocialRepository, SocialRepository>();
             services.AddScoped<IBioRepository, BioRepository>();
-            services.AddScoped<IWishlistRepository, WishlistItemRepository>();
+            services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
 
 
             return services;

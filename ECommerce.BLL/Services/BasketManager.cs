@@ -66,7 +66,7 @@ namespace ECommerce.BLL.Services
                         ProductId = product.Id,
                         ProductName = product.Name!,
                         ImageName = product.CoverImageName!,
-                        Price = product.Price,
+                        Price = product.BasePrice,
                         Quantity = item.Quantity
                     });
                 }
@@ -118,7 +118,7 @@ namespace ECommerce.BLL.Services
                         ProductId = product.Id,
                         ProductName = product.Name!,
                         ImageName = product.CoverImageName!,
-                        Price = product.Price,
+                        Price = product.BasePrice,
                         Quantity = item.Quantity
                     });
                 }

@@ -36,7 +36,7 @@ namespace ECommerce.DAL.DataContext
         public DbSet<Social> Socials { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Product>()
+            builder.Entity<ProductVariant>()
                 .Property(p => p.Price)
                 .HasPrecision(18, 2);
 

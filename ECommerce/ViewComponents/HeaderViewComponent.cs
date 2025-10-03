@@ -18,19 +18,8 @@ namespace ECommerce.MVC.ViewComponents
         {
             var model = await _headerService.GetHeaderAsync();
 
-            var basketList = new List<BasketItemViewModel>();
-
-            var basketListJson = Request.Cookies["SUPPLEMENT_ECOMMERCE_BASKET"];
-
-            if (string.IsNullOrEmpty(basketListJson))
-            {
-                model.BasketItems = basketList;
-            }
-            else
-            {
-                model.BasketItems = JsonConvert.DeserializeObject<List<BasketItemViewModel>>(basketListJson);
-            }
             return View(model);
         }
     }
 }
+

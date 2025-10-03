@@ -1,58 +1,65 @@
 ﻿@using ECommerce.Models
 @model RegisterViewModel
-<section class="login-tabs padding-large">
-    <div class="container my-5 py-5">
-        <div class="row">
-            <div class="tabs-listing">
-                <nav>
-                    <div class="nav nav-tabs d-flex justify-content-center border-dark-subtle mb-3" id="nav-tab"
-                         role="tablist">
-                        <button class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase"
-                                id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button"
-                                role="tab" aria-controls="nav-register" aria-selected="false">
-                            Sign Up
+
+<!-- page-title -->
+<div class="tf-page-title style-2">
+    <div class="container-full">
+        <div class="heading text-center">Register</div>
+    </div>
+</div>
+<!-- /page-title -->
+
+<section class="flat-spacing-10">
+    <div class="container">
+        <div class="form-register-wrap">
+            <div class="flat-title align-items-start gap-0 mb_30 px-0">
+                <h5 class="mb_18">Register</h5>
+                <p class="text_black-2">
+                    Sign up for early Sale access plus tailored new arrivals, trends and
+                    promotions. To opt out, click unsubscribe in our emails
+                </p>
+            </div>
+            <div>
+                <form class="" id="register-form" action="#" method="post" accept-charset="utf-8"
+                      data-mailchimp="true">
+                    <div class="tf-field style-1 mb_15">
+                        <input asp-for="FirstName" class="tf-field-input tf-input" placeholder=" ">
+                        <label class="tf-field-label fw-4 text_black-2" for="property1">First name</label>
+                        <span asp-validation-for="FirstName"></span>
+                    </div>
+                    <div class="tf-field style-1 mb_15">
+                        <input asp-for="LastName" class="tf-field-input tf-input" placeholder=" ">
+                        <label class="tf-field-label fw-4 text_black-2" for="property2">Last name</label>
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+                    <div class="tf-field style-1 mb_15">
+                        <input asp-for="UserName" class="tf-field-input tf-input" placeholder=" ">
+                        <label class="tf-field-label fw-4 text_black-2" for="property5">Username</label>
+                        <span asp-validation-for="UserName"></span>
+                    </div>
+                    <div class="tf-field style-1 mb_15">
+                        <input asp-for="Email" class="tf-field-input tf-input" placeholder=" " type="email">
+                        <label class="tf-field-label fw-4 text_black-2" for="property3">Email *</label>
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                    <div class="tf-field style-1 mb_30">
+                        <input asp-for="Password" class="tf-field-input tf-input" placeholder=" " type="password">
+                        <label class="tf-field-label fw-4 text_black-2" for="property4">Password *</label>
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="mb_20">
+                        <button type="submit"
+                                class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center">
+                            Register
                         </button>
                     </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade active show" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
-                        <div class="col-lg-8 offset-lg-2 mt-5">
-
-                            <p class="mb-0">Or Sign-Up With Email</p>
-                            <hr class="my-1">
-
-                            <form method="post" class="form-group flex-wrap" enctype="multipart/form-data">
-                                <div class="form-input col-lg-12 my-4">
-
-                                    <input asp-for="FullName" 
-                                           placeholder="Your full name" class="form-control mb-3 p-4">
-                                    <input asp-for="Username"
-                                           placeholder="Username" class="form-control mb-3 p-4">
-                                           <span asp-validation-for="Username"></span>
-                                    <input asp-for="Email"
-                                           placeholder="Your email address" class="form-control mb-3 p-4">
-                                    <input asp-for="ProfileImage"
-                                           placeholder="profile image" class="form-control mb-3 p-4">
-                                    <span asp-validation-for="ProfileImage"></span>
-                                    <input asp-for="Password" placeholder="Set your password"
-                                           class="form-control mb-3 p-4" aria-describedby="passwordHelpBlock">
-                                          <span asp-validation-for="Password"></span>
-                                    <input asp-for="ConfirmPassword" placeholder="Retype your password"
-                                           class="form-control mb-3 p-4" aria-describedby="passwordHelpBlock">
-                                           <span asp-validation-for="ConfirmPassword"></span>
-                 
-
-                                    <div asp-validation-summary="ModelOnly"></div>
-                                    <div class="d-grid my-3">
-                                        <button type="submit" class="btn btn-dark btn-lg rounded-1">Sign Up</button>
-                                    </div>
-
-                                </div>
-                            </form>
-
-                        </div>
+                    <div class="text-center">
+                        <a href="login.html" class="tf-btn btn-line">
+                            Already have an account? Log in here<i class="icon icon-arrow1-top-left"></i>
+                        </a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -8,12 +8,10 @@
 
         public string? AdditionalInformation { get; set; }
 
-        public decimal Price { get; set; }
-
         public string CoverImageName { get; set; } = null!;
 
         public int CategoryId { get; set; }
-
+        public decimal BasePrice { get; set; }
         public Category? Category { get; set; }
         public decimal DiscountPrice { get;  set; }
         public ICollection<ProductImage> ProductImages { get; set; } = [];

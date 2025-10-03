@@ -1,57 +1,83 @@
 ﻿@using ECommerce.Models
 @model LoginViewModel
-<section class="login-tabs padding-large">
-    <div class="container my-5 py-5">
-        <div class="row">
-            <div class="tabs-listing">
-                <nav>
-                    <div class="nav nav-tabs d-flex justify-content-center border-dark-subtle mb-3" id="nav-tab"
-                         role="tablist">
-                        <button class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase active"
-                                id="nav-sign-in-tab" data-bs-toggle="tab" data-bs-target="#nav-sign-in" type="button"
-                                role="tab" aria-controls="nav-sign-in" aria-selected="true">
-                            Log In
-                        </button>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade active show" id="nav-sign-in" role="tabpanel"
-                         aria-labelledby="nav-sign-in-tab">
-                        <div class="col-lg-8 offset-lg-2 mt-5">
 
-                            <p class="mb-0">Or Log-In With Username</p>
-                            <hr class="my-1">
+<!-- page-title -->
+<div class="tf-page-title style-2">
+    <div class="container-full">
+        <div class="heading text-center">Log in</div>
+    </div>
+</div>
+<!-- /page-title -->
 
-                            <form method="post" class="form-group flex-wrap ">
-                                <div class="form-input col-lg-12 my-4">
-
-                                    <input asp-for="Username"
-                                           placeholder="Enter username" class="form-control mb-3 p-4">
-                                           <span asp-validation-for="Username"></span>
-                                    <input asp-for="Password" placeholder="Enter password"
-                                           class="form-control mb-3 p-4" aria-describedby="passwordHelpBlock">
-                                           <span asp-validation-for="Password"></span>
-                                    <label class="py-3 d-flex flex-wrap justify-content-between">
-                                        <div>
-                                            <input asp-for="RememberMe" class="d-inline">
-                                            <span class="label-body ">Remember Me</span>
-                                        </div>
-
-                                        <div id="passwordHelpBlock" class="form-text ">
-                                            <a asp-controller="account" asp-action="forgotpassword" class="text-primary  fw-bold"> Forgot Password?</a>
-                                        </div>
-                                    </label>
-                                    <div class="d-grid my-3">
-                                        <button type="submit" class="btn btn-dark btn-lg rounded-1">Log In</button>
-                                    </div>
-                                    <div asp-validation-summary="ModelOnly"></div>
-                                </div>
-                            </form>
-
-                        </div>
-
+<section class="flat-spacing-10">
+    <div class="container">
+        <div class="tf-grid-layout lg-col-2 tf-login-wrap">
+            <div class="tf-login-form">
+                <div id="recover">
+                    <h5 class="mb_24">Reset your password</h5>
+                    <p class="mb_30">We will send you an email to reset your password</p>
+                    <div>
+                        <form class="" id="login-form" action="#" method="post" accept-charset="utf-8"
+                              data-mailchimp="true">
+                            <div class="tf-field style-1 mb_15">
+                                <input class="tf-field-input tf-input" placeholder="" type="email"
+                                       id="property3" name="email">
+                                <label class="tf-field-label fw-4 text_black-2" for="property3">Email *</label>
+                            </div>
+                            <div class="mb_20">
+                                <a href="#login" class="tf-btn btn-line">Cancel</a>
+                            </div>
+                            <div class="">
+                                <button type="submit"
+                                        class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center">
+                                    Reset
+                                    password
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <div id="login">
+                    <h5 class="mb_36">Log in</h5>
+                    <div>
+                        <form method="post" class="" id="login-form" accept-charset="utf-8">
+                            <div class="tf-field style-1 mb_15">
+                                <input asp-for="Email" class="tf-field-input tf-input" placeholder="">
+                                <label class="tf-field-label fw-4 text_black-2" for="property3">Email *</label>
+                                <span asp-validation-for="Email"></span>
+                            </div>
+                            <div class="tf-field style-1 mb_30">
+                                <input asp-for="Password" class="tf-field-input tf-input" placeholder="">
+                                <label class="tf-field-label fw-4 text_black-2" for="property4">
+                                    Password
+                                    *
+                                </label>
+                                <span asp-validation-for="Password"></span>
+                            </div>
+                            <div class="mb_20">
+                                <a href="#recover" class="tf-btn btn-line">Forgot your password?</a>
+                            </div>
+                            <div class="">
+                                <button type="submit"
+                                        class="tf-btn w-100 radius-3 btn-fill animate-hover-btn justify-content-center">
+                                    Log
+                                    in
+                                </button>
+                            </div>
+                            <div asp-validation-summary="ModelOnly"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tf-login-content">
+                <h5 class="mb_36">I'm new here</h5>
+                <p class="mb_20">
+                    Sign up for early Sale access plus tailored new arrivals, trends and
+                    promotions. To opt out, click unsubscribe in our emails.
+                </p>
+                <a asp-controller="account" asp-action="register" class="tf-btn btn-line">
+                    Register<i class="icon icon-arrow1-top-left"></i>
+                </a>
             </div>
         </div>
     </div>

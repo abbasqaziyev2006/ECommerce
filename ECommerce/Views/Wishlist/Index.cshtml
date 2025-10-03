@@ -1,0 +1,67 @@
+﻿<!-- page-title -->
+<div class="tf-page-title">
+    <div class="container-full">
+        <div class="heading text-center">Your Wishlist</div>
+    </div>
+</div>
+<!-- /page-title -->
+<!-- Section Product -->
+<section class="flat-spacing-2">
+    <div class="container">
+        <div class="grid-layout wrapper-shop" data-grid="grid-4">
+            @foreach (var item in Model)
+            {
+                <div class="card-product">
+                    <div class="card-product-wrapper">
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="product-img">
+                            <img src="~/images/products/@item.MainImage" alt="@item.Name" class="img-product" />
+                            @if (!string.IsNullOrEmpty(item.HoverImage))
+                            {
+                                <img src="~/images/products/@item.HoverImage" alt="@item.Name" class="img-hover" />
+                            }
+                        </a>
+
+                        <div class="list-product-btn type-wishlist">
+                            <form asp-action="Remove" asp-controller="Wishlist" method="post">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <button type="submit" class="box-icon bg_white wishlist" title="Remove from Wishlist">
+                                    <span class="icon icon-delete"></span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="list-product-btn">
+                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <button type="submit" class="box-icon bg_white quick-add">
+                                    <span class="icon icon-bag"></span>
+                                    <span class="tooltip">Add to Cart</span>
+                                </button>
+                            </form>
+
+                            <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
+                               class="box-icon bg_white compare btn-icon-action">
+                                <span class="icon icon-compare"></span>
+                                <span class="tooltip">Add to Compare</span>
+                            </a>
+
+                            <a href="#quick_view" data-bs-toggle="modal"
+                               class="box-icon bg_white quickview">
+                                <span class="icon icon-view"></span>
+                                <span class="tooltip">Quick View</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-product-info">
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="title link">
+                            @item.Name
+                        </a>
+                        <span class="price">$@item.Price</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- /Section Product -->

@@ -1,5 +1,7 @@
 ﻿using ECommerce.BLL.Constants;
 using ECommerce.BLL.Services;
+using ECommerce.BLL.Services.Contracts;
+using ECommerce.BLL.ViewModels;
 using ECommerce.DAL.DataContext.Entities;
 using ECommerce.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,14 +15,33 @@ namespace ECommerce.MVC.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly FileService _fileService;
+        private readonly IAddressService _addressService;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, FileService fileService)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, IAddressService addressService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _fileService = fileService;
+            _addressService = addressService;
+        }
+
+
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            var username = User.Identity!.Name ?? "";
+
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+                return BadRequest();
+
+            var model = new AccountViewModel
+            {
+                UserName = user.UserName,
+            };
+
+            return View(model);
         }
 
         public IActionResult Register()
@@ -32,17 +53,14 @@ namespace ECommerce.MVC.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
-
-            var profileImageName = await _fileService.GenerateFile(model.ProfileImage, FilePathConstants.ProfileImagePath);
 
             var user = new AppUser
             {
-                UserName = model.Username,
+                UserName = model.UserName,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 Email = model.Email,
-                FullName = model.FullName,
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -54,19 +72,7 @@ namespace ECommerce.MVC.Controllers
                     ModelState.AddModelError("", item.Description);
                 }
 
-                if (System.IO.File.Exists(Path.Combine(FilePathConstants.ProfileImagePath, profileImageName)))
-                {
-                    System.IO.File.Delete(Path.Combine(FilePathConstants.ProfileImagePath, profileImageName));
-                }
-
                 return View(model);
-            }
-
-            var adminRoleResult = await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
-
-            if (adminRoleResult.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "Admin");
             }
 
             return RedirectToAction("Index", "Home");
@@ -83,11 +89,11 @@ namespace ECommerce.MVC.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Istifadeci adi ve ya parol yanlisdir.");
+                ModelState.AddModelError("", "Email or password is incorrect.");
 
                 return View(model);
             }
@@ -96,14 +102,14 @@ namespace ECommerce.MVC.Controllers
 
             if (result.IsLockedOut)
             {
-                ModelState.AddModelError("", $"You are banned {user.LockoutEnd.Value.AddHours(4).ToString()}");
+                ModelState.AddModelError("", $"You are banned {user.LockoutEnd.Value.AddHours(4).ToString()}.");
 
                 return View(model);
             }
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Istifadeci adi ve ya parol yanlisdir.");
+                ModelState.AddModelError("", "Email or password is incorrect.");
 
                 return View(model);
             }
@@ -114,121 +120,201 @@ namespace ECommerce.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
-
         [Authorize]
-        public IActionResult ChangePassword()
+        public async Task<IActionResult> Edit()
         {
-            return View();
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
             var username = User.Identity!.Name ?? "";
 
             var user = await _userManager.FindByNameAsync(username);
 
             if (user == null)
-            {
                 return BadRequest();
-            }
 
-            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-
-            if (!result.Succeeded)
+            var editAccountViewModel = new EditAccountViewModel
             {
-                foreach (var item in result.Errors)
-                {
-                    ModelState.AddModelError("", item.Description);
-                }
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
 
-                return View(model);
-            }
+            };
 
-            return RedirectToAction(nameof(Login));
+
+            return View(editAccountViewModel);
         }
 
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
-
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(string email)
-        {
-            if (string.IsNullOrEmpty(email))
-            {
-                ModelState.AddModelError("", "Email required");
-
-                return View();
-            }
-
-            var user = await _userManager.FindByEmailAsync(email);
-
-            if (user == null)
-            {
-                ModelState.AddModelError("", "Email not found");
-
-                return View();
-            }
-
-            var resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-            var resetLink = Url.Action("ResetPassword", "Account", new { email, resetPasswordToken }, Request.Scheme, Request.Host.ToString());
-
-            //_mailService.SendMail(new Mail { ToEmail = user.Email, Subject = "ResetPassword", TextBody = resetLink });
-
-            return View("EmailSimulyasiya", resetLink);
-        }
-
-        public IActionResult ResetPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<IActionResult> Edit(EditAccountViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            //find user
+            var username = User.Identity!.Name ?? "";
+
+            var user = await _userManager.FindByNameAsync(username);
 
             if (user == null)
-            {
-                return View(model);
-            }
+                return BadRequest();
 
-            var result = await _userManager.ResetPasswordAsync(user, model.ResetPasswordToken, model.Password);
-
-            if (!result.Succeeded)
+            //check password
+            if (!string.IsNullOrEmpty(model.CurrentPassword) && !string.IsNullOrEmpty(model.NewPassword))
             {
-                foreach (var item in result.Errors)
+                var resultPassword = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (!resultPassword.Succeeded)
                 {
-                    ModelState.AddModelError("", item.Description);
+                    foreach (var error in resultPassword.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View(model);
                 }
-
-                return View(model);
             }
 
-            return RedirectToAction(nameof(Login));
+            if (model.Email != user.Email /*&& !string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(user.Email)*/)
+            {
+                var resultEmail = await _userManager.SetEmailAsync(user, model.Email);
+                if (!resultEmail.Succeeded)
+                {
+                    foreach (var error in resultEmail.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View(model);
+                }
+            }
+
+            if (model.FirstName != user.FirstName)
+                user.FirstName = model.FirstName;
+
+            if (model.LastName != user.LastName)
+                user.LastName = model.LastName;
+
+            var resultTotal = await _userManager.UpdateAsync(user);
+
+            if (!resultTotal.Succeeded)
+            {
+                foreach (var error in resultTotal.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddToWishlist(int id)
+        {
+            return NoContent();
+        }
+
+        public IActionResult Orders()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Address()
+        {
+            //var model = await _accountService.GetAddressViewModelsAsync();
+
+            //return View(model);
+
+            var adresses = await _addressService.GetAllAsync(predicate: x => !x.IsDeleted);
+
+            return View(adresses.ToList());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddAddress(CreateAddressViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction(nameof(Address));
+
+            if (User.Identity!.IsAuthenticated)
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
+                model.AppUserId = user!.Id;
+            }
+
+            await _addressService.CreateAsync(model);
+
+            return RedirectToAction(nameof(Address));
+        }
+
+        public async Task<IActionResult> EditAddress(int id)
+        {
+            var addressViewModel = await _addressService.GetByIdAsync(id);
+
+            if (addressViewModel == null)
+                return NotFound();
+
+            var addressUpdateViewModel = new UpdateAddressViewModel
+            {
+                Id = id,
+                FirstName = addressViewModel.FirstName,
+                LastName = addressViewModel.LastName,
+                Adress = addressViewModel.Adress,
+                PostalCode = addressViewModel.PostalCode,
+                Phone = addressViewModel.Phone,
+                Company = addressViewModel.Company,
+                City = addressViewModel.City,
+                Country = addressViewModel.Country,
+            };
+
+            return PartialView("_EditAddressPartial", addressUpdateViewModel);
+        }
+
+        public async Task<IActionResult> DeleteAddress(int id)
+        {
+            var address = await _addressService.GetByIdAsync(id);
+
+            if (address == null)
+                return BadRequest();
+
+            var deleted = await _addressService.DeleteAsync(id);
+
+            if (deleted)
+                return NoContent();
+            else
+                return RedirectToAction(nameof(Address));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAddress(int id, UpdateAddressViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var existedAddress = await _addressService.GetByIdAsync(id);
+            if (existedAddress == null)
+                return BadRequest();
+
+            existedAddress.FirstName = model.FirstName;
+            existedAddress.LastName = model.LastName;
+            existedAddress.Company = model.Company;
+            existedAddress.City = model.City;
+            existedAddress.Phone = model.Phone;
+            existedAddress.PostalCode = model.PostalCode;
+            existedAddress.Country = model.Country;
+            existedAddress.Adress = model.Adress;
+
+            var updated = await _addressService.UpdateAsync(id, model);
+
+            if (updated)
+                return RedirectToAction(nameof(Address));
+            else
+                return View(model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

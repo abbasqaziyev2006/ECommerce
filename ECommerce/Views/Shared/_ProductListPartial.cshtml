@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@foreach (var product in Model)
+{
+    <div class="card-product grid">
+        <div class="card-product-wrapper">
+            <a asp-controller="product" asp-action="details" asp-route-id="@product.DetailsUrl" class="product-img">
+                <img src="~/images/products/@product.CoverImageName" alt="@product.Name" />
+                @{
+                    var picture = product.Images.FirstOrDefault();
+                }
+                @if (picture != null)
+                {
+                    <img class="img-hover" src="~/images/products/@picture.ImageName" alt="@product.Name" />
+                }
+            </a>
+        </div>
+        <div class="card-product-info">
+            <a asp-controller="product" asp-action="details" asp-route-id="@product.DetailsUrl" class="title link">@product.Name</a>
+            <span class="price">$@product.BasePrice</span>
+        </div>
+    </div>
+}

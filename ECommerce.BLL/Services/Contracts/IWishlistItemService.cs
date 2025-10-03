@@ -5,6 +5,7 @@ namespace ECommerce.BLL.Services.Contracts
 {
     public interface IWishlistItemService : ICrudService<WishlistItem, WishlistItemViewModel, CreateWishlistItemViewModel, UpdateWishlistItemViewModel> 
     {
-    }
+
+	}
 }
 

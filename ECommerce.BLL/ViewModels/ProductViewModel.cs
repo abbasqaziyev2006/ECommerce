@@ -12,7 +12,7 @@ namespace ECommerce.BLL.ViewModels
 
         public string? AdditionalInformation { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal BasePrice { get; set; }
 
         public string? CoverImageName { get; set; }
 
