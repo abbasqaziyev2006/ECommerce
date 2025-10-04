@@ -211,6 +211,29 @@ namespace ECommerce.MVC.Controllers
 
         }
 
+        [Authorize]
+        public IActionResult Orders()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult OrderDetails(int id)
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Address()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Wishlist()
+        {
+            return View();
+        }
 
     }
 }

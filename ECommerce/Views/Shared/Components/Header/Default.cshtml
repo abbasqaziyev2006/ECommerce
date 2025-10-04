@@ -1009,29 +1009,30 @@ var basketTotalPrice = basketItems?.Sum(x => x.Count * x.Price);
                                                            class="menu-link-text link text_black-2">My account</a>
                                                     </li>
                                                     <li>
-                                                        <a href="my-account-orders.html"
+                                                        <a asp-controller="Account" asp-action="Orders"
                                                            class="menu-link-text link text_black-2">My order</a>
                                                     </li>
                                                     <li>
-                                                        <a href="my-account-orders-details.html"
+                                                        <a asp-controller="Account" asp-action="OrderDetails"
                                                            class="menu-link-text link text_black-2">
                                                             My order
                                                             details
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="my-account-address.html"
+                                                    <li>
+                                                        <a asp-controller="Account" asp-action="Address"
                                                            class="menu-link-text link text_black-2">My address</a>
                                                     </li>
                                                     <li>
-                                                        <a href="my-account-edit.html"
+                                                        <a asp-controller="Account" asp-action="Edit"
                                                            class="menu-link-text link text_black-2">
                                                             My account
                                                             details
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="my-account-wishlist.html"
+                                                        <a asp-controller="Account" asp-action="Wishlist"
                                                            class="menu-link-text link text_black-2">My wishlist</a>
                                                     </li>
                                                 </ul>
