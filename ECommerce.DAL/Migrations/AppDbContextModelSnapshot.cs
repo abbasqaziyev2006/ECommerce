@@ -402,9 +402,6 @@ namespace ECommerce.DAL.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductVariantId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -416,8 +413,6 @@ namespace ECommerce.DAL.Migrations
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ProductVariantId");
 
                     b.ToTable("OrderItems");
                 });
@@ -434,14 +429,11 @@ namespace ECommerce.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("BasePrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CoverImageName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -491,17 +483,12 @@ namespace ECommerce.DAL.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductVariantId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ProductVariantId");
 
                     b.ToTable("ProductImages");
                 });
@@ -542,6 +529,10 @@ namespace ECommerce.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -555,14 +546,13 @@ namespace ECommerce.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("AppUserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Wishlists");
                 });
@@ -700,35 +690,6 @@ namespace ECommerce.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProductVariant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductVariants");
-                });
-
             modelBuilder.Entity("Social", b =>
                 {
                     b.Property<int>("Id")
@@ -795,10 +756,6 @@ namespace ECommerce.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProductVariant", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("ProductVariantId");
-
                     b.Navigation("Order");
 
                     b.Navigation("Product");
@@ -823,30 +780,26 @@ namespace ECommerce.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProductVariant", null)
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductVariantId");
-
                     b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.DataContext.Entities.WishlistItem", b =>
                 {
+                    b.HasOne("ECommerce.DAL.DataContext.Entities.AppUser", "AppUser")
+                        .WithMany("WishlisItems")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ECommerce.DAL.DataContext.Entities.Product", "Product")
                         .WithMany("WishlistItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommerce.DAL.DataContext.Entities.AppUser", "User")
-                        .WithMany("WishlisItems")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AppUser");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -900,17 +853,6 @@ namespace ECommerce.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProductVariant", b =>
-                {
-                    b.HasOne("ECommerce.DAL.DataContext.Entities.Product", "Product")
-                        .WithMany("ProductVariants")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ECommerce.DAL.DataContext.Entities.AppUser", b =>
                 {
                     b.Navigation("Addresses");
@@ -941,16 +883,7 @@ namespace ECommerce.DAL.Migrations
 
                     b.Navigation("ProductImages");
 
-                    b.Navigation("ProductVariants");
-
                     b.Navigation("WishlistItems");
-                });
-
-            modelBuilder.Entity("ProductVariant", b =>
-                {
-                    b.Navigation("OrderItems");
-
-                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

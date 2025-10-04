@@ -7,6 +7,7 @@ using ECommerce.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.MVC.Controllers
 {
@@ -15,14 +16,16 @@ namespace ECommerce.MVC.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IAddressService _addressService;
+        private readonly IWishlistItemService _wishlistItemService;
+        private readonly IProductService _productService;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, IAddressService addressService)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, IWishlistItemService userWishlistItemService, IProductService productService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _addressService = addressService;
+            _wishlistItemService = userWishlistItemService;
+            _productService = productService;
         }
 
 
@@ -89,7 +92,7 @@ namespace ECommerce.MVC.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByEmailAsync(model.UserName);
 
             if (user == null)
             {
@@ -206,10 +209,83 @@ namespace ECommerce.MVC.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> AddToWishlist(int id)
+        public async Task<IActionResult> Wishlist()
         {
+            var items = await GetWishlist();
+
+            return View(items);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> WishlistHeader()
+        {
+            var items = await GetWishlist();
+
+            return View(items);
+        }
+
+        public async Task<List<WishlistItemViewModel>> GetWishlist()
+        {
+            var username = User.Identity!.Name ?? "";
+
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+                return null!;
+
+            var items = await _wishlistItemService.GetAllAsync(predicate: x => x.UserId == user.Id && !x.IsDeleted, include: x => x .Include(p => p.Product).ThenInclude(p => p.ProductImages));
+
+            return items.ToList();
+        }
+
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddWishlist(int id)
+        {
+            var productViewModel = await _productService.GetByIdAsync(id);
+            if (productViewModel == null)
+                return NotFound();
+
+            var username = User.Identity!.Name ?? "";
+
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+                return BadRequest();
+
+            //var item = _wishlistItemService.CheckProduct(user.Id, id);
+            //if (item != null)
+            //    return NoContent();
+
+            var createViewModel = new CreateWishlistItemViewModel
+            {
+                AppUserId = user.Id,
+                ProductId = id
+            };
+
+            await _wishlistItemService.CreateAsync(createViewModel);
+
             return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromWishlist(int id)
+        {
+            var items = await GetWishlist();
+
+            var currentItem = items.FirstOrDefault(x => x.ProductId == id);
+            if (currentItem == null)
+                return BadRequest();
+
+            var removed = await _wishlistItemService.DeleteAsync(currentItem.Id);
+
+            if (removed)
+                return NoContent();
+            else
+                return RedirectToAction("Index");
         }
 
         public IActionResult Orders()
@@ -217,98 +293,7 @@ namespace ECommerce.MVC.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Address()
-        {
-            //var model = await _accountService.GetAddressViewModelsAsync();
 
-            //return View(model);
-
-            var adresses = await _addressService.GetAllAsync(predicate: x => !x.IsDeleted);
-
-            return View(adresses.ToList());
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddAddress(CreateAddressViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return RedirectToAction(nameof(Address));
-
-            if (User.Identity!.IsAuthenticated)
-            {
-                var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
-                model.AppUserId = user!.Id;
-            }
-
-            await _addressService.CreateAsync(model);
-
-            return RedirectToAction(nameof(Address));
-        }
-
-        public async Task<IActionResult> EditAddress(int id)
-        {
-            var addressViewModel = await _addressService.GetByIdAsync(id);
-
-            if (addressViewModel == null)
-                return NotFound();
-
-            var addressUpdateViewModel = new UpdateAddressViewModel
-            {
-                Id = id,
-                FirstName = addressViewModel.FirstName,
-                LastName = addressViewModel.LastName,
-                Adress = addressViewModel.Adress,
-                PostalCode = addressViewModel.PostalCode,
-                Phone = addressViewModel.Phone,
-                Company = addressViewModel.Company,
-                City = addressViewModel.City,
-                Country = addressViewModel.Country,
-            };
-
-            return PartialView("_EditAddressPartial", addressUpdateViewModel);
-        }
-
-        public async Task<IActionResult> DeleteAddress(int id)
-        {
-            var address = await _addressService.GetByIdAsync(id);
-
-            if (address == null)
-                return BadRequest();
-
-            var deleted = await _addressService.DeleteAsync(id);
-
-            if (deleted)
-                return NoContent();
-            else
-                return RedirectToAction(nameof(Address));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditAddress(int id, UpdateAddressViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var existedAddress = await _addressService.GetByIdAsync(id);
-            if (existedAddress == null)
-                return BadRequest();
-
-            existedAddress.FirstName = model.FirstName;
-            existedAddress.LastName = model.LastName;
-            existedAddress.Company = model.Company;
-            existedAddress.City = model.City;
-            existedAddress.Phone = model.Phone;
-            existedAddress.PostalCode = model.PostalCode;
-            existedAddress.Country = model.Country;
-            existedAddress.Adress = model.Adress;
-
-            var updated = await _addressService.UpdateAsync(id, model);
-
-            if (updated)
-                return RedirectToAction(nameof(Address));
-            else
-                return View(model);
-        }
 
         public async Task<IActionResult> Logout()
         {

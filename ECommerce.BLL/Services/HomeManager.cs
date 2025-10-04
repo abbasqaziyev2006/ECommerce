@@ -18,7 +18,7 @@ namespace ECommerce.BLL.Services
         {
             var categories = await _categoryService.GetAllAsync(predicate: x => !x.IsDeleted);
 
-            var products = await _productService.GetAllAsync(predicate: x => !x.IsDeleted, include: x => x.Include(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages).Include(pv => pv.ProductVariants));
+            var products = await _productService.GetAllAsync(predicate: x => !x.IsDeleted, include: x => x.Include(p => p.ProductImages));
 
             var homeViewModel = new HomeViewModel
             {

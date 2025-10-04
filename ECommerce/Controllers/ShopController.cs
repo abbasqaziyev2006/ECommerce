@@ -57,6 +57,18 @@ namespace ECommerce.MVC.Controllers
             return PartialView("_ProductCardPartial", products);
         }
 
+        public async Task<IActionResult> Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return RedirectToAction("Index");
+
+            var products = await _productService.GetAllAsync(
+                predicate: p => p.Name.Contains(query) ||   p.Description.Contains(query) && !p.IsDeleted);
+
+            ViewBag.SearchQuery = query;
+            return View("Index", products);
+        }
+
     }
 }
 

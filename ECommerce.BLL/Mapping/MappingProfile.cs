@@ -22,12 +22,6 @@ namespace ECommerce.BLL.Mapping
             CreateMap<Slider, CreateSliderViewModel>().ReverseMap();
             CreateMap<Slider, UpdateSliderViewModel>().ReverseMap();
 
-
-            CreateMap<ProductVariant, ProductVariantViewModel>().ReverseMap();
-            CreateMap<ProductVariant, CreateProductVariantViewModel>().ReverseMap();
-            CreateMap<ProductVariant, UpdateProductVariantViewModel>().ReverseMap();
-
-
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<Category, CreateCategoryViewModel>().ReverseMap();
             CreateMap<Category, UpdateCategoryViewModel>().ReverseMap();

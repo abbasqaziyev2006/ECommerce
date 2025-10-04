@@ -31,13 +31,12 @@ namespace ECommerce.DAL.DataContext
         public DbSet<WishlistItem> Wishlists { get; set; } = null!;
         public DbSet<Currency> Currencies { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;
-        public DbSet<ProductVariant> ProductVariants { get; set; } = null!;
         public DbSet<Bio> Bios { get; set; } = null!;
         public DbSet<Social> Socials { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ProductVariant>()
-                .Property(p => p.Price)
+            builder.Entity<Product>()
+                .Property(p => p.BasePrice)
                 .HasPrecision(18, 2);
 
             base.OnModelCreating(builder);

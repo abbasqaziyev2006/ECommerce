@@ -103,10 +103,10 @@ var basketTotalPrice = basketItems?.Sum(x => x.Count * x.Price);
                     <nav class="box-navigation text-center">
                         <ul class="box-nav-ul d-flex align-items-center justify-content-center gap-30">
                             <li class="menu-item">
-                                <a asp-controller="home" asp-action="index" class="item-link">Home<i class="icon icon-arrow-down"></i></a>
+                                <a asp-controller="Home" asp-action="Index" class="item-link">Home<i class="icon icon-arrow-down"></i></a>
                             </li>
                             <li class="menu-item">
-                                <a asp-controller="shop" asp-action="index" class="item-link">Shop<i class="icon icon-arrow-down"></i></a>
+                                <a asp-controller="Shop" asp-action="Index" class="item-link">Shop<i class="icon icon-arrow-down"></i></a>
                                 <div class="sub-menu mega-menu">
                                     <div class="container">
                                         <div class="row">
@@ -115,7 +115,7 @@ var basketTotalPrice = basketItems?.Sum(x => x.Count * x.Price);
                                                     <div class="menu-heading">Shop layouts</div>
                                                     <ul class="menu-list">
                                                         <li>
-                                                            <a asp-controller="shop" asp-action="index"
+                                                            <a asp-controller="Shop" asp-action="Index"
                                                                class="menu-link-text link">Default</a>
                                                         </li>
                                                         <li>
@@ -966,14 +966,14 @@ var basketTotalPrice = basketItems?.Sum(x => x.Count * x.Price);
                                             </a>
                                         </li>
                                         <li>
-                                            <a asp-controller="basket" asp-action="index"
+                                            <a asp-controller="Basket" asp-action="Index"
                                                class="menu-link-text link text_black-2 position-relative">
                                                 View
                                                 cart
                                             </a>
                                         </li>
                                         <li>
-                                            <a asp-controller="basket" asp-action="checkout"
+                                            <a asp-controller="Basket" asp-action="Checkout"
                                                class="menu-link-text link text_black-2 position-relative">
                                                 Check
                                                 out
@@ -1001,11 +1001,11 @@ var basketTotalPrice = basketItems?.Sum(x => x.Count * x.Price);
                                             </div>
                                         </li>
                                         <li class="menu-item-2">
-                                            <a asp-controller="account" asp-action="index">My account</a>
+                                            <a asp-controller="Account" asp-action="Index" class="menu-link-text link text_black-2">My account</a>>My account</a>
                                             <div class="sub-menu submenu-default">
                                                 <ul class="menu-list">
                                                     <li>
-                                                        <a asp-controller="account" asp-action="index"
+                                                        <a asp-controller="Account" asp-action="Index"
                                                            class="menu-link-text link text_black-2">My account</a>
                                                     </li>
                                                     <li>
@@ -1093,31 +1093,37 @@ var basketTotalPrice = basketItems?.Sum(x => x.Count * x.Price);
                 </div>
                 <div class="col-xl-3 col-md-4 col-3">
                     <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
-                        <li class="nav-search">
+                        <li class="nav-">
                             <a href="#canvasSearch" data-bs-toggle="offcanvas"
                                aria-controls="offcanvasLeft" class="nav-icon-item">
                                 <i class="icon icon-search"></i>
                             </a>
                         </li>
                         <li class="nav-account">
-                            <a asp-controller="account" asp-action="login" data-bs-toggle="modal" class ="nav-icon-item">
-                                @if (User.Identity!.IsAuthenticated)
-                                {
-                                    <span>@User.Identity.Name</span>
-                                }
-                                <i class="icon icon-account"></i>
-                            </a>
+                            @if (User.Identity!.IsAuthenticated)
+                            {
+                                <a asp-controller="Account" asp-action="Dashboard" class="nav-icon-item">
+                                    <span class="d-none d-md-inline">@User.Identity.Name</span>
+                                    <i class="icon icon-account"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login" class="nav-icon-item">
+                                    <i class="icon icon-account"></i>
+                                </a>
+                            }
                         </li>
                         <li class="nav-wishlist">
-                            <link href="c:\users\lenovo\source\repos\ecommerceproject\ecommerceproject.mvc\views\shared\_layout.cshtml.css" rel="stylesheet" />
-                            <a href="c:\users\lenovo\source\repos\ecommerceproject\ecommerceproject.mvc\views\shared\_layout.cshtml"></a>
-                            <a href="wishlist.html" class="nav-icon-item">
-                                <i class="icon icon-heart"></i><span class="count-box">0</span>
+                            <a asp-controller="Account" asp-action="Wishlist" class="nav-icon-item">
+                                <i class="icon icon-heart"></i>
+                                <span class="count-box">@(ViewBag.WishlistCount ?? 0)</span>
                             </a>
                         </li>
                         <li class="nav-cart">
                             <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item">
-                                <i class="icon icon-bag"></i><span class="count-box" id="basketTotalCountHeader">0</span>
+                                <i class="icon icon-bag"></i>
+                                <span class="count-box" id="basketTotalCountHeader">0</span>
                             </a>
                         </li>
                     </ul>

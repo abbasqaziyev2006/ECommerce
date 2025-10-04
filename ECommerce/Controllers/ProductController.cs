@@ -27,9 +27,7 @@ namespace  ECommerce.MVC.Controllers
             var model = await _productService.GetAsync(predicate: x => x.Id == productId && !x.IsDeleted,
                 include: x => x
                 .Include(c => c.Category)
-                .Include(pv => pv.ProductVariants)
-                .ThenInclude(i => i.ProductImages)
-                .Include(pv => pv.ProductVariants));
+                .Include(pv => pv.ProductImages));
 
             return View(model);
         }

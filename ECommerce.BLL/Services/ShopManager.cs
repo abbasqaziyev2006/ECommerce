@@ -18,9 +18,12 @@ namespace ECommerce.BLL.Services
         public async Task<ShopViewModel> GetShopAsync()
         {
             var categories = await _categoryService.GetAllAsync(predicate: x => !x.IsDeleted);
-            var products = await _productService.GetAllAsync(predicate: x => !x.IsDeleted, include: x => x.Include(pv => pv.ProductVariants).ThenInclude(i => i.ProductImages).Include(pv => pv.ProductVariants));
+            var products = await _productService.GetAllAsync(
+               predicate: x => !x.IsDeleted,
+               include: x => x.Include(p => p.ProductImages));
 
-            var shopViewModel = new ShopViewModel
+
+           var shopViewModel = new ShopViewModel
             {
                 Products = products.ToList(),
                 Categories = categories.ToList()

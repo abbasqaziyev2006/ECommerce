@@ -40,19 +40,19 @@
                 <div id="login">
                     <h5 class="mb_36">Log in</h5>
                     <div>
-                        <form method="post" class="" id="login-form" accept-charset="utf-8">
+                        <form class="" id="login-form" method="post" asp-action="Login" accept-charset="utf-8">
                             <div class="tf-field style-1 mb_15">
-                                <input asp-for="Email" class="tf-field-input tf-input" placeholder="">
-                                <label class="tf-field-label fw-4 text_black-2" for="property3">Email *</label>
-                                <span asp-validation-for="Email"></span>
+                                <input class="tf-field-input tf-input" placeholder="" asp-for="UserName"
+                                       id="property3" name="username">
+                                <label class="tf-field-label fw-4 text_black-2" for="property3">UserName *</label>
                             </div>
                             <div class="tf-field style-1 mb_30">
-                                <input asp-for="Password" class="tf-field-input tf-input" placeholder="">
+                                <input class="tf-field-input tf-input" placeholder="" asp-for="Password"
+                                       id="property4" name="password">
                                 <label class="tf-field-label fw-4 text_black-2" for="property4">
                                     Password
                                     *
                                 </label>
-                                <span asp-validation-for="Password"></span>
                             </div>
                             <div class="mb_20">
                                 <a href="#recover" class="tf-btn btn-line">Forgot your password?</a>
@@ -64,7 +64,8 @@
                                     in
                                 </button>
                             </div>
-                            <div asp-validation-summary="ModelOnly"></div>
+
+                            <div asp-validation-summary="All"></div>
                         </form>
                     </div>
                 </div>
@@ -75,7 +76,7 @@
                     Sign up for early Sale access plus tailored new arrivals, trends and
                     promotions. To opt out, click unsubscribe in our emails.
                 </p>
-                <a asp-controller="account" asp-action="register" class="tf-btn btn-line">
+                <a asp-action="Register" asp-controller="Account" class="tf-btn btn-line">
                     Register<i class="icon icon-arrow1-top-left"></i>
                 </a>
             </div>
