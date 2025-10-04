@@ -11,72 +11,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.MVC.Controllers
 {
+
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IWishlistItemService _wishlistItemService;
-        private readonly IProductService _productService;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, IWishlistItemService userWishlistItemService, IProductService productService)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _wishlistItemService = userWishlistItemService;
-            _productService = productService;
         }
-
 
         [Authorize]
-        public async Task<IActionResult> Index()
-        {
-            var username = User.Identity!.Name ?? "";
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
-                return BadRequest();
-
-            var model = new AccountViewModel
-            {
-                UserName = user.UserName,
-            };
-
-            return View(model);
-        }
-
-        public IActionResult Register()
+        public IActionResult Dashboard()
         {
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Logout()
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var user = new AppUser
-            {
-                UserName = model.UserName,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
-            {
-                foreach (var item in result.Errors)
-                {
-                    ModelState.AddModelError("", item.Description);
-                }
-
-                return View(model);
-            }
+            await _signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
         }
@@ -92,214 +49,77 @@ namespace ECommerce.MVC.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.UserName);
+            var user = await _userManager.FindByNameAsync(model.UserName);
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Email or password is incorrect.");
-
+                ModelState.AddModelError("", "Username or password is incorrect!");
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, true);
-
-            if (result.IsLockedOut)
-            {
-                ModelState.AddModelError("", $"You are banned {user.LockoutEnd.Value.AddHours(4).ToString()}.");
-
-                return View(model);
-            }
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Email or password is incorrect.");
-
+                ModelState.AddModelError("", "Username or password is incorrect!");
                 return View(model);
             }
 
             if (!string.IsNullOrEmpty(model.ReturnUrl))
+            {
                 return Redirect(model.ReturnUrl);
+            }
 
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
-        public async Task<IActionResult> Edit()
-        {
-            var username = User.Identity!.Name ?? "";
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
-                return BadRequest();
-
-            var editAccountViewModel = new EditAccountViewModel
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-
-            };
-
-
-            return View(editAccountViewModel);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Edit(EditAccountViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            //find user
-            var username = User.Identity!.Name ?? "";
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
-                return BadRequest();
-
-            //check password
-            if (!string.IsNullOrEmpty(model.CurrentPassword) && !string.IsNullOrEmpty(model.NewPassword))
-            {
-                var resultPassword = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                if (!resultPassword.Succeeded)
-                {
-                    foreach (var error in resultPassword.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                    return View(model);
-                }
-            }
-
-            if (model.Email != user.Email /*&& !string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(user.Email)*/)
-            {
-                var resultEmail = await _userManager.SetEmailAsync(user, model.Email);
-                if (!resultEmail.Succeeded)
-                {
-                    foreach (var error in resultEmail.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-
-                    return View(model);
-                }
-            }
-
-            if (model.FirstName != user.FirstName)
-                user.FirstName = model.FirstName;
-
-            if (model.LastName != user.LastName)
-                user.LastName = model.LastName;
-
-            var resultTotal = await _userManager.UpdateAsync(user);
-
-            if (!resultTotal.Succeeded)
-            {
-                foreach (var error in resultTotal.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
-
-            return RedirectToAction(nameof(Index));
-
-        }
-
-        [Authorize]
-        public async Task<IActionResult> Wishlist()
-        {
-            var items = await GetWishlist();
-
-            return View(items);
-        }
-
-        [Authorize]
-        public async Task<IActionResult> WishlistHeader()
-        {
-            var items = await GetWishlist();
-
-            return View(items);
-        }
-
-        public async Task<List<WishlistItemViewModel>> GetWishlist()
-        {
-            var username = User.Identity!.Name ?? "";
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
-                return null!;
-
-            var items = await _wishlistItemService.GetAllAsync(predicate: x => x.UserId == user.Id && !x.IsDeleted, include: x => x .Include(p => p.Product).ThenInclude(p => p.ProductImages));
-
-            return items.ToList();
-        }
-
-
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> AddWishlist(int id)
-        {
-            var productViewModel = await _productService.GetByIdAsync(id);
-            if (productViewModel == null)
-                return NotFound();
-
-            var username = User.Identity!.Name ?? "";
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
-                return BadRequest();
-
-            //var item = _wishlistItemService.CheckProduct(user.Id, id);
-            //if (item != null)
-            //    return NoContent();
-
-            var createViewModel = new CreateWishlistItemViewModel
-            {
-                AppUserId = user.Id,
-                ProductId = id
-            };
-
-            await _wishlistItemService.CreateAsync(createViewModel);
-
-            return NoContent();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> RemoveFromWishlist(int id)
-        {
-            var items = await GetWishlist();
-
-            var currentItem = items.FirstOrDefault(x => x.ProductId == id);
-            if (currentItem == null)
-                return BadRequest();
-
-            var removed = await _wishlistItemService.DeleteAsync(currentItem.Id);
-
-            if (removed)
-                return NoContent();
-            else
-                return RedirectToAction("Index");
-        }
-
-        public IActionResult Orders()
+        public IActionResult Register()
         {
             return View();
         }
 
-
-
-        public async Task<IActionResult> Logout()
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            await _signInManager.SignOutAsync();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            return RedirectToAction("Index", "Home");
+            var user = new AppUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+
+            };
+
+
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.Code, item.Description);
+                }
+
+                return View(model);
+            }
+
+            var roleResult = await _roleManager.CreateAsync(new IdentityRole { Name = "Client" });
+
+
+            await _userManager.AddToRoleAsync(user, "Client");
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        public IActionResult AccessDenied(string returnUrl)
+        {
+            return View();
         }
     }
 }
